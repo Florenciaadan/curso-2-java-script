@@ -2,11 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Para que la página se adapte también al celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Travel Planner</title>
 
+    <!-- Acá conecto el archivo de estilos -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Con defer hago que el JS cargue después del HTML -->
     <script src="main.js" defer></script>
 </head>
 
@@ -26,13 +31,14 @@
 
             <div class="decoracion"></div>
 
-            <h2>¿Listo para viajar?</h2>
+            <h2>¿Lista para viajar?</h2>
 
             <p class="descripcion">
-                Completá los datos que te vamos a solicitar
-                y calcularemos un presupuesto estimado para tu viaje.
+                Completá los datos que te vamos a pedir
+                y calcularemos un presupuesto estimado.
             </p>
 
+            <!-- Este botón inicia el simulador -->
             <button onclick="iniciarSimulador()">
                 Comenzar mi viaje ✈️
             </button>

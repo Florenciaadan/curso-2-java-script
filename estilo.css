@@ -1,3 +1,4 @@
+/* Ajustes generales de la página */
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +13,7 @@ body {
     justify-content: center;
     align-items: center;
 
+    /* Fondo con degradado */
     background: linear-gradient(135deg, #74ebd5, #9face6);
 
     color: #263238;
@@ -30,6 +32,7 @@ body {
 
     text-align: center;
 
+    /* Le da un poco de profundidad a la tarjeta */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
@@ -72,7 +75,6 @@ h2 {
 
 button {
     border: none;
-
     padding: 15px 30px;
 
     border-radius: 12px;
