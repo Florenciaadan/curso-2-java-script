@@ -8,6 +8,8 @@ function calcularTotal(precio, cantidad) {
     return precio * cantidad;
 }
 
+
+
 // funcion flecha para revisar el presupuesto
 const revisarPresupuesto = (total) => {
     if (total > 100000) {
@@ -16,6 +18,7 @@ const revisarPresupuesto = (total) => {
         return "tu compra esta dentro de tu presupuesto";
     }
 };
+
 
     ///      funcion para mostrar el resultado
 function mostrarResultado(nombre, producto, cantidad, total, presupuesto) {
@@ -32,7 +35,7 @@ let condicion;
 
 do {
 
-    // entrada de datos
+        // entrada de datos
 
 
     const nombre = pedirDato("ingrese su nombre");
@@ -40,8 +43,8 @@ do {
     const precio = parseFloat(pedirDato("cual es el precio del producto?"));
     const cantidad = parseInt(pedirDato("que cantidad queres comprar de ese producto?"));
 
-    // calculo el total , ahce pxq
-    const total = calcularTotal(precio, cantidad);
+            // calculo el total , ahce pxq
+            const total = calcularTotal(precio, cantidad);
 
 
     // reviso el presupuesto
@@ -51,9 +54,12 @@ do {
     // muestro el resultado
     mostrarResultado(nombre, producto, cantidad, total, presupuesto);
 
-    // aca hace el rulo de volver a preguntars
-    condicion = confirm("queres cargar otra compra?");
 
+
+
+                
+            // aca hace el rulo de volver a preguntars
+            condicion = confirm("queres cargar otra compra?");
 
 
 } while (condicion);
