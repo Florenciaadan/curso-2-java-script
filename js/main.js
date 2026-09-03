@@ -33,15 +33,17 @@ let condicion;
 do {
 
     // entrada de datos
+
+
     const nombre = pedirDato("ingrese su nombre");
     const producto = pedirDato("que producto queres comprar");
     const precio = parseFloat(pedirDato("cual es el precio del producto?"));
     const cantidad = parseInt(pedirDato("que cantidad queres comprar de ese producto?"));
 
-    // calculo el total
+    // calculo el total , ahce pxq
     const total = calcularTotal(precio, cantidad);
 
-    
+
     // reviso el presupuesto
     const presupuesto = revisarPresupuesto(total);
 
@@ -49,7 +51,7 @@ do {
     // muestro el resultado
     mostrarResultado(nombre, producto, cantidad, total, presupuesto);
 
-    // pregunto si quiere cargar otra compra
+    // aca hace el rulo de volver a preguntars
     condicion = confirm("queres cargar otra compra?");
 
 
