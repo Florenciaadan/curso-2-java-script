@@ -1,10 +1,10 @@
-// funcion para calcular el costo del viaje
+// como calcula el costo  del viaje
 
 function calcularTotal(precio, personas, dias) {
     return precio * personas * dias;
 }
 
-// funcion flecha para revisar el presupuesto
+// funccion flecha para revisar el presupuesto
 
 const revisarPresupuesto = (total, presupuesto) => {
     if (total > presupuesto) {
