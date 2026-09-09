@@ -1,14 +1,7 @@
-// funcion para pedir datos
-function pedirDato(mensaje) {
-    return prompt(mensaje);
-}
-
 // funcion para calcular el total
 function calcularTotal(precio, cantidad) {
     return precio * cantidad;
 }
-
-
 
 // funcion flecha para revisar el presupuesto
 const revisarPresupuesto = (total) => {
@@ -19,8 +12,7 @@ const revisarPresupuesto = (total) => {
     }
 };
 
-
-    ///      funcion para mostrar el resultado
+// funcion para mostrar el resultado
 function mostrarResultado(nombre, producto, cantidad, total, presupuesto) {
     const mensaje = "hola " + nombre + ", compraste " + cantidad +
         " unidades de " + producto +
@@ -30,36 +22,84 @@ function mostrarResultado(nombre, producto, cantidad, total, presupuesto) {
     alert(mensaje);
 }
 
-// ciclo para cargar los datos
+// funcion para recorrer el array
+function mostrarProductos(productos) {
+    let mensaje = "productos disponibles:\n";
+
+    for (const producto of productos) {
+        mensaje = mensaje + "producto: " + producto + "\n";
+    }
+
+    alert(mensaje);
+}
+
+// funcion para buscar un producto
+function buscarProducto(productos, productoBuscado) {
+    if (productos.includes(productoBuscado)) {
+        return productos.indexOf(productoBuscado);
+    } else {
+        return -1;
+    }
+}
+
+// array de productos
+const productos = [
+    "laptop",
+    "celular",
+    "teclado",
+    "mouse",
+    "monitor"
+];
+
+// agrego un producto al final
+productos.push("auriculares");
+
+// agrego un producto al principio
+productos.unshift("tablet");
+
+// elimino el ultimo producto
+const productoEliminado = productos.pop();
+
+alert("se ha eliminado el elemento: " + productoEliminado);
+
+// busco un producto
+const productoBuscado = prompt("que producto queres buscar?");
+
+// verifico si existe
+const indiceProducto = buscarProducto(productos, productoBuscado);
+
+if (indiceProducto !== -1) {
+    alert("el producto existe y esta en el indice: " + indiceProducto);
+} else {
+    alert("el producto no existe en la lista");
+}
+
+// modifico un producto usando splice
+productos.splice(2, 1, "teclado mecanico");
+
+// muestro todos los productos
+mostrarProductos(productos);
+
+// ciclo para realizar la compra
 let condicion;
 
 do {
 
-        // entrada de datos
+    const nombre = prompt("ingrese su nombre");
+    const producto = prompt("que producto queres comprar");
+    const precio = parseFloat(prompt("cual es el precio del producto?"));
+    const cantidad = parseInt(prompt("que cantidad queres comprar de ese producto?"));
 
-
-    const nombre = pedirDato("ingrese su nombre");
-    const producto = pedirDato("que producto queres comprar");
-    const precio = parseFloat(pedirDato("cual es el precio del producto?"));
-    const cantidad = parseInt(pedirDato("que cantidad queres comprar de ese producto?"));
-
-            // calculo el total , ahce pxq
-            const total = calcularTotal(precio, cantidad);
-
+    // calculo el total
+    const total = calcularTotal(precio, cantidad);
 
     // reviso el presupuesto
     const presupuesto = revisarPresupuesto(total);
 
-
     // muestro el resultado
     mostrarResultado(nombre, producto, cantidad, total, presupuesto);
 
-
-
-
-                
-            // aca hace el rulo de volver a preguntars
-            condicion = confirm("queres cargar otra compra?");
-
+    // pregunto si quiere realizar otra compra
+    condicion = confirm("queres cargar otra compra?");
 
 } while (condicion);
