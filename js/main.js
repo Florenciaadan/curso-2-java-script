@@ -19,10 +19,10 @@ const revisarPresupuesto = (total, presupuesto) => {
 
 function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
     const mensaje = "hola " + nombre +
-        ", tu viaje a " + destino +
+        ", para tu viaje a " + destino +
         " para " + personas + " personas" +
         " durante " + dias + " dias" +
-        " tiene un costo estimado de $" + total +
+        " deberas contemplar un presupuesto estimado de $" + total +
         ". " + presupuesto;
 
     alert(mensaje);
@@ -49,7 +49,7 @@ function buscarDestino(destinos, destinoBuscado) {
         return destinos.indexOf(destinoBuscado);
     } else {
         return -1;
-        
+
     }
 }
 
