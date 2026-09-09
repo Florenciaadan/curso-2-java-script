@@ -1,9 +1,11 @@
 // funcion para calcular el costo del viaje
+
 function calcularTotal(precio, personas, dias) {
     return precio * personas * dias;
 }
 
 // funcion flecha para revisar el presupuesto
+
 const revisarPresupuesto = (total, presupuesto) => {
     if (total > presupuesto) {
         return "el viaje supera tu presupuesto";
@@ -13,6 +15,8 @@ const revisarPresupuesto = (total, presupuesto) => {
 };
 
 // funcion para mostrar el resultado
+
+
 function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
     const mensaje = "hola " + nombre +
         ", tu viaje a " + destino +
@@ -24,7 +28,7 @@ function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
     alert(mensaje);
 }
 
-// funcion para recorrer el array de destinos
+// uso el for-of
 function mostrarDestinos(destinos) {
     let mensaje = "destinos disponibles:\n";
 
@@ -79,7 +83,7 @@ if (indiceDestino !== -1) {
     alert("el destino no esta disponible");
 }
 
-// uso el splice para cambiar uruguay por peru
+    // uso el splice para cambiar destino pos 2 (chile por peru)
 destinos.splice(2, 1, "peru");
 
 // muestro nuevamente los destinos
@@ -106,12 +110,14 @@ do {
     // reviso el presupuesto
     const resultadoPresupuesto = revisarPresupuesto(total, presupuesto);
 
-    // muestro el resultado
-    mostrarResultado(
-        nombre,
+
+
+      // muestro el resultado
+            mostrarResultado(
+                nombre,
         destino,
         personas,
-        dias,
+          dias,
         total,
         resultadoPresupuesto
     );
