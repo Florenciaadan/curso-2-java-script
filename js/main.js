@@ -28,6 +28,10 @@ function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
     alert(mensaje);
 }
 
+
+
+
+
 // uso el for-of
 function mostrarDestinos(destinos) {
     let mensaje = "destinos disponibles:\n";
@@ -45,6 +49,7 @@ function buscarDestino(destinos, destinoBuscado) {
         return destinos.indexOf(destinoBuscado);
     } else {
         return -1;
+        
     }
 }
 
@@ -68,14 +73,20 @@ const destinoEliminado = destinos.pop();
 
 alert("se ha eliminado el destino: " + destinoEliminado);
 
-// muestro los destinos disponibles
+
+
+// muestro lugares disponibles
 mostrarDestinos(destinos);
 
+
+
 // pregunto que destino quiere buscar
+
+
 const destinoBuscado = prompt("que destino queres visitar?");
 
-// busco el destino
-const indiceDestino = buscarDestino(destinos, destinoBuscado);
+    // busco el destino
+    const indiceDestino = buscarDestino(destinos, destinoBuscado);
 
 if (indiceDestino !== -1) {
     alert("el destino existe y esta en el indice: " + indiceDestino);
@@ -86,7 +97,8 @@ if (indiceDestino !== -1) {
     // uso el splice para cambiar destino pos 2 (chile por peru)
 destinos.splice(2, 1, "peru");
 
-// muestro nuevamente los destinos
+
+// muestro de nuevo los destinos
 mostrarDestinos(destinos);
 
 // ciclo para realizar una consulta de viaje
@@ -97,11 +109,14 @@ do {
     // entrada de datos
     const nombre = prompt("ingrese su nombre");
     const destino = prompt("que lugar queres visitar?");
-    const personas = parseInt(prompt("cuantas personas viajan?"));
-    const dias = parseInt(prompt("de cuantos dias queres que sea tu viaje?"));
-    const presupuesto = parseFloat(prompt("cuanto queres gastar entre aereo/micro y alojamiento?"));
+        const personas = parseInt(prompt("cuantas personas viajan?"));
+        const dias = parseInt(prompt("de cuantos dias queres que sea tu viaje?"));
+        const presupuesto = parseFloat(prompt("cuanto queres gastar entre aereo/micro y alojamiento?"));
 
-    // precio estimado por persona y por dia
+    
+    
+    
+        // precio estimado por persona y por dia
     const precio = 100;
 
     // calculo el total
