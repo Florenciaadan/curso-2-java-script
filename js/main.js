@@ -79,7 +79,7 @@ if (indiceDestino !== -1) {
     alert("el destino no esta disponible");
 }
 
-// modifico un destino usando splice
+// uso el splice para cambiar uruguay por peru
 destinos.splice(2, 1, "peru");
 
 // muestro nuevamente los destinos
