@@ -1,105 +1,122 @@
-// funcion para calcular el total
-function calcularTotal(precio, cantidad) {
-    return precio * cantidad;
+// funcion para calcular el costo del viaje
+function calcularTotal(precio, personas, dias) {
+    return precio * personas * dias;
 }
 
 // funcion flecha para revisar el presupuesto
-const revisarPresupuesto = (total) => {
-    if (total > 100000) {
-        return "tu compra supera los $100000.";
+const revisarPresupuesto = (total, presupuesto) => {
+    if (total > presupuesto) {
+        return "el viaje supera tu presupuesto";
     } else {
-        return "tu compra esta dentro de tu presupuesto";
+        return "el viaje esta dentro de tu presupuesto";
     }
 };
 
 // funcion para mostrar el resultado
-function mostrarResultado(nombre, producto, cantidad, total, presupuesto) {
-    const mensaje = "hola " + nombre + ", compraste " + cantidad +
-        " unidades de " + producto +
-        ". el total de tu compra es: $" + total +
+function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
+    const mensaje = "hola " + nombre +
+        ", tu viaje a " + destino +
+        " para " + personas + " personas" +
+        " durante " + dias + " dias" +
+        " tiene un costo estimado de $" + total +
         ". " + presupuesto;
 
     alert(mensaje);
 }
 
-// funcion para recorrer el array
-function mostrarProductos(productos) {
-    let mensaje = "productos disponibles:\n";
+// funcion para recorrer el array de destinos
+function mostrarDestinos(destinos) {
+    let mensaje = "destinos disponibles:\n";
 
-    for (const producto of productos) {
-        mensaje = mensaje + "producto: " + producto + "\n";
+    for (const destino of destinos) {
+        mensaje = mensaje + "destino: " + destino + "\n";
     }
 
     alert(mensaje);
 }
 
-// funcion para buscar un producto
-function buscarProducto(productos, productoBuscado) {
-    if (productos.includes(productoBuscado)) {
-        return productos.indexOf(productoBuscado);
+// funcion para buscar un destino
+function buscarDestino(destinos, destinoBuscado) {
+    if (destinos.includes(destinoBuscado)) {
+        return destinos.indexOf(destinoBuscado);
     } else {
         return -1;
     }
 }
 
-// array de productos
-const productos = [
-    "laptop",
-    "celular",
-    "teclado",
-    "mouse",
-    "monitor"
+// array de destinos disponibles
+const destinos = [
+    "brasil",
+    "chile",
+    "uruguay",
+    "mexico",
+    "españa"
 ];
 
-// agrego un producto al final
-productos.push("auriculares");
+// agrego un destino al final
+destinos.push("italia");
 
-// agrego un producto al principio
-productos.unshift("tablet");
+// agrego un destino al principio
+destinos.unshift("argentina");
 
-// elimino el ultimo producto
-const productoEliminado = productos.pop();
+// elimino el ultimo destino
+const destinoEliminado = destinos.pop();
 
-alert("se ha eliminado el elemento: " + productoEliminado);
+alert("se ha eliminado el destino: " + destinoEliminado);
 
-// busco un producto
-const productoBuscado = prompt("que producto queres buscar?");
+// muestro los destinos disponibles
+mostrarDestinos(destinos);
 
-// verifico si existe
-const indiceProducto = buscarProducto(productos, productoBuscado);
+// pregunto que destino quiere buscar
+const destinoBuscado = prompt("que destino queres visitar?");
 
-if (indiceProducto !== -1) {
-    alert("el producto existe y esta en el indice: " + indiceProducto);
+// busco el destino
+const indiceDestino = buscarDestino(destinos, destinoBuscado);
+
+if (indiceDestino !== -1) {
+    alert("el destino existe y esta en el indice: " + indiceDestino);
 } else {
-    alert("el producto no existe en la lista");
+    alert("el destino no esta disponible");
 }
 
-// modifico un producto usando splice
-productos.splice(2, 1, "teclado mecanico");
+// modifico un destino usando splice
+destinos.splice(2, 1, "peru");
 
-// muestro todos los productos
-mostrarProductos(productos);
+// muestro nuevamente los destinos
+mostrarDestinos(destinos);
 
-// ciclo para realizar la compra
+// ciclo para realizar una consulta de viaje
 let condicion;
 
 do {
 
+    // entrada de datos
     const nombre = prompt("ingrese su nombre");
-    const producto = prompt("que producto queres comprar");
-    const precio = parseFloat(prompt("cual es el precio del producto?"));
-    const cantidad = parseInt(prompt("que cantidad queres comprar de ese producto?"));
+    const destino = prompt("que lugar queres visitar?");
+    const personas = parseInt(prompt("cuantas personas viajan?"));
+    const dias = parseInt(prompt("de cuantos dias queres que sea tu viaje?"));
+    const presupuesto = parseFloat(prompt("cuanto queres gastar entre aereo/micro y alojamiento?"));
+
+    // precio estimado por persona y por dia
+    const precio = 100;
 
     // calculo el total
-    const total = calcularTotal(precio, cantidad);
+    const total = calcularTotal(precio, personas, dias);
 
     // reviso el presupuesto
-    const presupuesto = revisarPresupuesto(total);
+    const resultadoPresupuesto = revisarPresupuesto(total, presupuesto);
 
     // muestro el resultado
-    mostrarResultado(nombre, producto, cantidad, total, presupuesto);
+    mostrarResultado(
+        nombre,
+        destino,
+        personas,
+        dias,
+        total,
+        resultadoPresupuesto
+    );
 
-    // pregunto si quiere realizar otra compra
-    condicion = confirm("queres cargar otra compra?");
+    // pregunto si quiere hacer otra consulta
+    condicion = confirm("queres consultar otro viaje?");
 
 } while (condicion);
