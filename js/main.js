@@ -163,9 +163,14 @@ if (carrito.length > 0) {
         presupuesto
     );
 
-    console.log("nombre: " + nombre);
-    console.log("paquete elegido: " + paqueteElegido.destino);
-    console.log("total del viaje sin impuestos: $" + total);
-    console.log(resultadoPresupuesto);
+    const mensaje = "hola " + nombre +
+        ", elegiste el paquete a " + paqueteElegido.destino +
+        " para " + paqueteElegido.personas + " personas" +
+        " durante " + paqueteElegido.dias + " dias." +
+        "\nprecio sin impuestos: $" + total +
+        "\nprecio con impuestos: $" + (total * 1.21) +
+        "\n" + resultadoPresupuesto;
 
+    console.log(mensaje);
+    alert(mensaje);
 }
