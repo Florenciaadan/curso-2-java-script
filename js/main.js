@@ -100,6 +100,8 @@ paqueteMexico.verPrecios();
 
 // loop para elegir paquetes o terminar de elegir y luego avanzar. identifico numoero de paqute con 1 2 3 
 
+
+
 let continuar;
 
 do {
@@ -167,14 +169,19 @@ do {
 
         console.log(mensaje);
         alert(mensaje);
+
+
+        continuar = confirm("queres cotizar otro viaje?");
+
+        if (!continuar) {
+            alert("hasta pronto " + nombre);
+        }
+
+    } else {
+
+        continuar = false;
+
     }
-
-
-continuar = confirm("queres cotizar otro viaje?");
-
-if (!continuar) {
-    alert("hasta pronto " + nombre);
-}
 
 } while (continuar);
 
@@ -182,41 +189,3 @@ if (!continuar) {
 // muestro el carrito final
 
 verCarrito();
-
-
-// pregunto los datos para calcular el viaje
-
-const nombre = prompt("ingrese su nombre");
-
-const presupuesto = parseFloat(
-    prompt("cuanto queres gastar en tu viaje?")
-);
-
-
-// calculo el total del primer paquete del carrito, aca le sumo el iva y va a devolver resumen y si esta o no dentro de mi presupuesto o no
-
-if (carrito.length > 0) {
-
-    const paqueteElegido = carrito[0];
-
-    const total = calcularTotal(paqueteElegido);
-
-    const resultadoPresupuesto = revisarPresupuesto(
-        total,
-        presupuesto
-    );
-
-            // pongo + para que se una a la siguiente fila donde sigue el mensajee
-
-
-    const mensaje = "hola " + nombre +
-        ", elegiste el paquete a " + paqueteElegido.destino +
-        " para " + paqueteElegido.personas + " personas" +
-        " durante " + paqueteElegido.dias + " dias." +
-        "\nprecio sin impuestos: $" + total +
-        "\nprecio con impuestos: $" + (total * 1.21) +
-        "\n" + resultadoPresupuesto;
-
-        console.log(mensaje);
-        alert(mensaje);
-    }
