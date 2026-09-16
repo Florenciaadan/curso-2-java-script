@@ -111,27 +111,66 @@ do {
         "3 - mexico"
     ));
 
+    let paqueteElegido;
 
     if (opcion === 1) {
 
-        agregarAlCarrito(paqueteBrasil);
+        paqueteElegido = paqueteBrasil;
 
     } else if (opcion === 2) {
 
-        agregarAlCarrito(paqueteChile);
+        paqueteElegido = paqueteChile;
 
     } else if (opcion === 3) {
 
-        agregarAlCarrito(paqueteMexico);
+        paqueteElegido = paqueteMexico;
 
     } else {
 
         alert("opcion no valida");
-
     }
 
 
-    continuar = confirm("queres agregar otro paquete?");
+    if (paqueteElegido) {
+
+        const nombre = prompt("ingrese su nombre");
+
+        const personas = parseInt(
+            prompt("cuantas personas viajan?")
+        );
+
+        const dias = parseInt(
+            prompt("de cuantos dias queres que sea tu viaje?")
+        );
+
+        const presupuesto = parseFloat(
+            prompt("cuanto queres gastar en tu viaje?")
+        );
+
+
+        const total = calcularTotal(paqueteElegido);
+
+        const resultadoPresupuesto = revisarPresupuesto(
+            total,
+            presupuesto
+        );
+
+
+        const mensaje = "hola " + nombre +
+            ", elegiste el paquete a " + paqueteElegido.destino +
+            " para " + personas + " personas" +
+            " durante " + dias + " dias." +
+            "\nprecio sin impuestos: $" + total +
+            "\nprecio con impuestos: $" + (total * 1.21) +
+            "\n" + resultadoPresupuesto;
+
+
+        console.log(mensaje);
+        alert(mensaje);
+    }
+
+
+    continuar = confirm("queres cotizar otro viaje?");
 
 } while (continuar);
 
