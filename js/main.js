@@ -98,7 +98,7 @@ console.log("paquete mexico:");
 paqueteMexico.verPrecios();
 
 
-// ciclo para elegir paquetes
+// loop para elegir paquetes o terminar de elegir y luego avanzar. identifico numoero de paqute con 1 2 3 
 
 let continuar;
 
@@ -163,14 +163,17 @@ if (carrito.length > 0) {
         presupuesto
     );
 
+            // pongo + para que se una a la siguiente fila donde sigue el mensajee
+
+
     const mensaje = "hola " + nombre +
-        ", elegiste el paquete a " + paqueteElegido.destino;
-        " para " + paqueteElegido.personas + " personas";
-        " durante " + paqueteElegido.dias + " dias.";
-        "\nprecio sin impuestos: $" + total;
-        "\nprecio con impuestos: $" + (total * 1.21);
+        ", elegiste el paquete a " + paqueteElegido.destino +
+        " para " + paqueteElegido.personas + " personas" +
+        " durante " + paqueteElegido.dias + " dias." +
+        "\nprecio sin impuestos: $" + total +
+        "\nprecio con impuestos: $" + (total * 1.21) +
         "\n" + resultadoPresupuesto;
 
-    console.log(mensaje);
-    alert(mensaje);
-}
+        console.log(mensaje);
+        alert(mensaje);
+    }
