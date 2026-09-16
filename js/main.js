@@ -116,17 +116,12 @@ do {
     let paqueteElegido;
 
     if (opcion === 1) {
-
         paqueteElegido = paqueteBrasil;
-
     } else if (opcion === 2) {
 
         paqueteElegido = paqueteChile;
-
     } else if (opcion === 3) {
-
         paqueteElegido = paqueteMexico;
-
     } else {
 
         alert("opcion no valida");
@@ -140,14 +135,13 @@ do {
         const personas = parseInt(
             prompt("cuantas personas viajan?")
         );
-
         const dias = parseInt(
             prompt("de cuantos dias queres que sea tu viaje?")
         );
 
-        const presupuesto = parseFloat(
-            prompt("cuanto queres gastar en tu viaje?")
-        );
+                const presupuesto = parseFloat(
+                    prompt("cuanto queres gastar en tu viaje?")
+                );
 
 
         const total = calcularTotal(paqueteElegido);
@@ -165,6 +159,9 @@ do {
             "\nprecio sin impuestos: $" + total +
             "\nprecio con impuestos: $" + (total * 1.21) +
             "\n" + resultadoPresupuesto;
+
+
+
 
 
         console.log(mensaje);
