@@ -1,6 +1,10 @@
 // clase para crear los paquetes de viaje
 
 
+
+            /// clase 5 , palicar objetos, this, new. Usar por ejemplo para control de stock, o precios con sin impuestos
+        //lo voy a poder usar para calcular precio con y sin iva del paquete
+
 // usar el this y determino objetos del paquete
 class PaqueteViaje {
 
