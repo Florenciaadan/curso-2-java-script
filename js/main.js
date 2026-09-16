@@ -150,7 +150,7 @@ const presupuesto = parseFloat(
 );
 
 
-// calculo el total del primer paquete del carrito
+// calculo el total del primer paquete del carrito, aca le sumo el iva y va a devolver resumen y si esta o no dentro de mi presupuesto o no
 
 if (carrito.length > 0) {
 
@@ -164,11 +164,11 @@ if (carrito.length > 0) {
     );
 
     const mensaje = "hola " + nombre +
-        ", elegiste el paquete a " + paqueteElegido.destino +
-        " para " + paqueteElegido.personas + " personas" +
-        " durante " + paqueteElegido.dias + " dias." +
-        "\nprecio sin impuestos: $" + total +
-        "\nprecio con impuestos: $" + (total * 1.21) +
+        ", elegiste el paquete a " + paqueteElegido.destino;
+        " para " + paqueteElegido.personas + " personas";
+        " durante " + paqueteElegido.dias + " dias.";
+        "\nprecio sin impuestos: $" + total;
+        "\nprecio con impuestos: $" + (total * 1.21);
         "\n" + resultadoPresupuesto;
 
     console.log(mensaje);
