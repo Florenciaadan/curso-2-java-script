@@ -1,5 +1,7 @@
 // clase para crear los paquetes de viaje
 
+
+// usar el this y determino objetos del paquete
 class PaqueteViaje {
 
     constructor(destino, precio, dias, personas) {
