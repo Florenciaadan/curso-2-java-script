@@ -170,7 +170,11 @@ do {
     }
 
 
-    continuar = confirm("queres cotizar otro viaje?");
+continuar = confirm("queres cotizar otro viaje?");
+
+if (!continuar) {
+    alert("hasta pronto " + nombre);
+}
 
 } while (continuar);
 
