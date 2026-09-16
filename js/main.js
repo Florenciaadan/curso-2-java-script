@@ -1,143 +1,123 @@
-// como calcula el costo  del viaje
+// clase para crear los paquetes de viaje
 
-function calcularTotal(precio, personas, dias) {
-    return precio * personas * dias;
-}
+class PaqueteViaje {
 
-// funccion flecha para revisar el presupuesto
-
-const revisarPresupuesto = (total, presupuesto) => {
-    if (total > presupuesto) {
-        return "el viaje supera tu presupuesto";
-    } else {
-        return "el viaje esta dentro de tu presupuesto";
-    }
-};
-
-// funcion para mostrar el resultado
-
-
-function mostrarResultado(nombre, destino, personas, dias, total, presupuesto) {
-    const mensaje = "hola " + nombre +
-        ", para tu viaje a " + destino +
-        " para " + personas + " personas" +
-        " durante " + dias + " dias" +
-        " deberas contemplar un presupuesto estimado de $" + total +
-        ". " + presupuesto;
-
-    alert(mensaje);
-}
-
-
-
-
-
-// uso el for-of
-function mostrarDestinos(destinos) {
-    let mensaje = "destinos disponibles:\n";
-
-    for (const destino of destinos) {
-        mensaje = mensaje + "destino: " + destino + "\n";
+    constructor(destino, precio, dias, personas) {
+        this.destino = destino;
+        this.precio = precio;
+        this.dias = dias;
+        this.personas = personas;
     }
 
-    alert(mensaje);
-}
-
-// funcion para buscar un destino
-function buscarDestino(destinos, destinoBuscado) {
-    if (destinos.includes(destinoBuscado)) {
-        return destinos.indexOf(destinoBuscado);
-    } else {
-        return -1;
-
+    // metodo para calcular el precio con impuestos
+    verPrecioConImpuestos() {
+        return this.precio * 1.21;
     }
 }
 
-// array de destinos disponibles
-const destinos = [
-    "brasil",
-    "chile",
-    "uruguay",
-    "mexico",
-    "españa"
-];
 
-// agrego un destino al final
-destinos.push("italia");
+// creo tres paquetes de viaje
 
-// agrego un destino al principio
-destinos.unshift("argentina");
+const paqueteBrasil = new PaqueteViaje("brasil", 500, 7, 2);
 
-// elimino el ultimo destino
-const destinoEliminado = destinos.pop();
+const paqueteChile = new PaqueteViaje("chile", 400, 5, 2);
 
-alert("se ha eliminado el destino: " + destinoEliminado);
+const paqueteMexico = new PaqueteViaje("mexico", 800, 10, 2);
 
 
-
-// muestro lugares disponibles
-mostrarDestinos(destinos);
-
+// carrito de compras
+const carrito = [];
 
 
-// pregunto que destino quiere buscar
+// funcion para mostrar el precio con y sin impuestos
 
+function mostrarPrecios(paquete) {
 
-const destinoBuscado = prompt("que destino queres visitar?");
+    console.log("destino: " + paquete.destino);
+    console.log("precio sin impuestos: $" + paquete.precio);
+    console.log("precio con impuestos: $" + paquete.verPrecioConImpuestos());
 
-    // busco el destino
-    const indiceDestino = buscarDestino(destinos, destinoBuscado);
-
-if (indiceDestino !== -1) {
-    alert("el destino existe y esta en el indice: " + indiceDestino);
-} else {
-    alert("el destino no esta disponible");
 }
 
-    // uso el splice para cambiar destino pos 2 (chile por peru)
-destinos.splice(2, 1, "peru");
+
+// funcion para agregar un paquete al carrito
+
+function agregarAlCarrito(paquete) {
+
+    carrito.push(paquete);
+
+    console.log("se agrego al carrito el paquete a " + paquete.destino);
+
+}
 
 
-// muestro de nuevo los destinos
-mostrarDestinos(destinos);
+// funcion para ver el carrito
 
-// ciclo para realizar una consulta de viaje
-let condicion;
+function verCarrito() {
+
+    console.log("paquetes en el carrito:");
+
+    for (const paquete of carrito) {
+
+        console.log(
+            "destino: " + paquete.destino +
+            " - precio: $" + paquete.precio +
+            " - dias: " + paquete.dias +
+            " - personas: " + paquete.personas
+        );
+    }
+}
+
+
+// muestro los paquetes disponibles
+
+console.log("paquetes disponibles:");
+
+mostrarPrecios(paqueteBrasil);
+
+mostrarPrecios(paqueteChile);
+
+mostrarPrecios(paqueteMexico);
+
+
+// pregunto que paquete quiere agregar
+
+let opcion;
 
 do {
 
-    // entrada de datos
-    const nombre = prompt("ingrese su nombre");
-    const destino = prompt("que lugar queres visitar?");
-        const personas = parseInt(prompt("cuantas personas viajan?"));
-        const dias = parseInt(prompt("de cuantos dias queres que sea tu viaje?"));
-        const presupuesto = parseFloat(prompt("cuanto queres gastar entre aereo/micro y alojamiento?"));
+    opcion = parseInt(prompt(
+        "elegi un paquete:\n" +
+        "1 - brasil\n" +
+        "2 - chile\n" +
+        "3 - mexico"
+    ));
 
-    
-    
-    
-        // precio estimado por persona y por dia
-    const precio = 100;
+    if (opcion === 1) {
 
-    // calculo el total
-    const total = calcularTotal(precio, personas, dias);
+        agregarAlCarrito(paqueteBrasil);
 
-    // reviso el presupuesto
-    const resultadoPresupuesto = revisarPresupuesto(total, presupuesto);
+    } else if (opcion === 2) {
+
+        agregarAlCarrito(paqueteChile);
+
+    } else if (opcion === 3) {
+
+        agregarAlCarrito(paqueteMexico);
+
+    } else {
+
+        alert("opcion no valida");
+    }
 
 
+    // pregunto si quiere agregar otro paquete
 
-      // muestro el resultado
-            mostrarResultado(
-                nombre,
-        destino,
-        personas,
-          dias,
-        total,
-        resultadoPresupuesto
-    );
+    continuar = confirm("queres agregar otro paquete?");
 
-    // pregunto si quiere hacer otra consulta
-    condicion = confirm("queres consultar otro viaje?");
+} while (continuar);
 
-} while (condicion);
+
+// muestro el carrito final
+
+verCarrito();
