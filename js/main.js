@@ -177,7 +177,7 @@ do {
         continuar = confirm("queres cotizar otro viaje?");
 
         if (!continuar) {
-            alert("hasta pronto " + nombre);
+            alert("hasta pronto " + nombre + " , no dudes en consultarnos por el resto de los destinos que tenemos disponibles");
         }
 
     } else {
