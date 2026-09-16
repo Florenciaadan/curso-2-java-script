@@ -9,9 +9,14 @@ class PaqueteViaje {
         this.personas = personas;
     }
 
-    // metodo para calcular el precio con impuestos
-    verPrecioConImpuestos() {
-        return this.precio * 1.21;
+    // metodo para mostrar el precio sin y con impuestos
+
+    verPrecios() {
+        const precioConImpuestos = this.precio * 1.21;
+
+        console.log("destino: " + this.destino);
+        console.log("precio sin impuestos: $" + this.precio);
+        console.log("precio con impuestos: $" + precioConImpuestos);
     }
 }
 
@@ -25,19 +30,29 @@ const paqueteChile = new PaqueteViaje("chile", 400, 5, 2);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 10, 2);
 
 
-// carrito de compras
+// array para guardar los paquetes del carrito
+
 const carrito = [];
 
 
-// funcion para mostrar el precio con y sin impuestos
+// funcion para calcular el costo total del viaje
 
-function mostrarPrecios(paquete) {
-
-    console.log("destino: " + paquete.destino);
-    console.log("precio sin impuestos: $" + paquete.precio);
-    console.log("precio con impuestos: $" + paquete.verPrecioConImpuestos());
-
+function calcularTotal(paquete) {
+    return paquete.precio * paquete.personas * paquete.dias;
 }
+
+
+// funcion para revisar el presupuesto
+
+const revisarPresupuesto = (total, presupuesto) => {
+
+    if (total > presupuesto) {
+        return "el viaje supera tu presupuesto";
+    } else {
+        return "el viaje esta dentro de tu presupuesto";
+    }
+
+};
 
 
 // funcion para agregar un paquete al carrito
@@ -46,7 +61,7 @@ function agregarAlCarrito(paquete) {
 
     carrito.push(paquete);
 
-    console.log("se agrego al carrito el paquete a " + paquete.destino);
+    alert("se agrego al carrito el paquete a " + paquete.destino);
 
 }
 
@@ -65,33 +80,37 @@ function verCarrito() {
             " - dias: " + paquete.dias +
             " - personas: " + paquete.personas
         );
+
     }
+
 }
 
 
-// muestro los paquetes disponibles
+// muestro los precios de los paquetes
 
-console.log("paquetes disponibles:");
+console.log("paquete brasil:");
+paqueteBrasil.verPrecios();
 
-mostrarPrecios(paqueteBrasil);
+console.log("paquete chile:");
+paqueteChile.verPrecios();
 
-mostrarPrecios(paqueteChile);
+console.log("paquete mexico:");
+paqueteMexico.verPrecios();
 
-mostrarPrecios(paqueteMexico);
 
+// ciclo para elegir paquetes
 
-// pregunto que paquete quiere agregar
-
-let opcion;
+let continuar;
 
 do {
 
-    opcion = parseInt(prompt(
+    const opcion = parseInt(prompt(
         "elegi un paquete:\n" +
         "1 - brasil\n" +
         "2 - chile\n" +
         "3 - mexico"
     ));
+
 
     if (opcion === 1) {
 
@@ -108,10 +127,9 @@ do {
     } else {
 
         alert("opcion no valida");
+
     }
 
-
-    // pregunto si quiere agregar otro paquete
 
     continuar = confirm("queres agregar otro paquete?");
 
@@ -121,3 +139,33 @@ do {
 // muestro el carrito final
 
 verCarrito();
+
+
+// pregunto los datos para calcular el viaje
+
+const nombre = prompt("ingrese su nombre");
+
+const presupuesto = parseFloat(
+    prompt("cuanto queres gastar en tu viaje?")
+);
+
+
+// calculo el total del primer paquete del carrito
+
+if (carrito.length > 0) {
+
+    const paqueteElegido = carrito[0];
+
+    const total = calcularTotal(paqueteElegido);
+
+    const resultadoPresupuesto = revisarPresupuesto(
+        total,
+        presupuesto
+    );
+
+    console.log("nombre: " + nombre);
+    console.log("paquete elegido: " + paqueteElegido.destino);
+    console.log("total del viaje sin impuestos: $" + total);
+    console.log(resultadoPresupuesto);
+
+}
