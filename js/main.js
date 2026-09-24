@@ -1,4 +1,11 @@
-// clase para crear los paquetes de viaje
+
+
+
+
+// HOLA LUCAS Y JESUS DEJO ESTE MENSAJE ACA PARA DECIRLES QUE EN LA PAGINA DE CODERHOUSE EL CHAT, NO APARECE. 
+// QUISE ESCRIBIRLES POR DUDAS PERO NO ESTA, LO ENTREGO ASI. A CRUZARRRR LOS DEDOS JAJA
+
+
 
 class PaqueteViaje {
 
@@ -9,7 +16,7 @@ class PaqueteViaje {
         this.personas = personas;
     }
 
-    // metodo para mostrar el precio sin y con impuestos
+
 
     verPrecios() {
         const precioConImpuestos = this.precio * 1.21;
@@ -21,7 +28,6 @@ class PaqueteViaje {
 }
 
 
-// creo tres paquetes de viaje
 
 const paqueteBrasil = new PaqueteViaje("brasil", 500, 7, 2);
 
@@ -30,7 +36,6 @@ const paqueteChile = new PaqueteViaje("chile", 400, 5, 2);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 10, 2);
 
 
-// array de objetos con los paquetes
 
 const paquetes = [
     paqueteBrasil,
@@ -39,19 +44,19 @@ const paquetes = [
 ];
 
 
-// array para guardar los paquetes del carrito
+
 
 const carrito = [];
 
 
-// funcion para calcular el costo total del viaje
+
 
 function calcularTotal(paquete, personas, dias) {
     return paquete.precio * personas * dias;
 }
 
 
-// funcion para revisar el presupuesto
+
 
 const revisarPresupuesto = (total, presupuesto) => {
 
@@ -64,7 +69,7 @@ const revisarPresupuesto = (total, presupuesto) => {
 };
 
 
-// funcion para agregar un paquete al carrito
+
 
 function agregarAlCarrito(paquete) {
 
@@ -75,7 +80,7 @@ function agregarAlCarrito(paquete) {
 }
 
 
-// funcion para ver el carrito
+
 
 function verCarrito() {
 
@@ -103,7 +108,7 @@ function verCarrito() {
 }
 
 
-// muestro los precios de los paquetes
+
 
 console.log("paquete brasil:");
 paqueteBrasil.verPrecios();
@@ -115,7 +120,7 @@ console.log("paquete mexico:");
 paqueteMexico.verPrecios();
 
 
-// loop para cotizar viajes
+
 
 let continuar;
 
@@ -136,21 +141,19 @@ do {
     );
 
 
-    // filter busca los paquetes que puede comprar
-    // el usuario segun su presupuesto
+
 
     const paquetesQuePuedeComprar = paquetes.filter(
         paquete => calcularTotal(paquete, personas, dias) <= presupuesto
     );
 
 
-    // muestro en consola los paquetes encontrados
+
 
     console.log("paquetes que puede comprar segun su presupuesto:");
     console.log(paquetesQuePuedeComprar);
 
 
-    // muestro los paquetes disponibles al usuario
 
     if (paquetesQuePuedeComprar.length > 0) {
 
@@ -184,7 +187,7 @@ do {
         alert(mensajePaquetes);
 
 
-        // pregunto si quiere agregar alguno al carrito
+
 
         const agregar = confirm(
             "queres agregar alguno de estos paquetes al carrito?"
@@ -201,7 +204,7 @@ do {
             );
 
 
-            // busco el paquete elegido dentro del array filtrado
+
 
             const paqueteElegido =
                 paquetesQuePuedeComprar[numeroPaquete - 1];
@@ -209,7 +212,7 @@ do {
 
             if (paqueteElegido) {
 
-                // find busca el paquete elegido dentro del array
+   
 
                 const paqueteEncontrado = paquetes.find(
                     paquete =>
@@ -220,7 +223,6 @@ do {
                 agregarAlCarrito(paqueteEncontrado);
 
 
-                // muestro el carrito actualizado
 
                 console.log("carrito actualizado:");
                 verCarrito();
@@ -250,7 +252,7 @@ do {
     }
 
 
-    // map crea un nuevo array con los precios con impuestos
+
 
     const paquetesConImpuestos = paquetes.map(
         paquete => {
@@ -268,13 +270,13 @@ do {
     );
 
 
-    // muestro el resultado de map
+
 
     console.log("paquetes con precios con impuestos:");
     console.log(paquetesConImpuestos);
 
 
-    // pregunto si quiere cotizar otro viaje
+
 
     continuar = confirm(
         "queres cotizar otro viaje?"
@@ -294,7 +296,6 @@ do {
 } while (continuar);
 
 
-// muestro el carrito final
 
 console.log("carrito final:");
 verCarrito();
