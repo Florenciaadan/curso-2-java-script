@@ -1,11 +1,5 @@
 // clase para crear los paquetes de viaje
 
-
-
-            /// clase 5 , palicar objetos, this, new. Usar por ejemplo para control de stock, o precios con sin impuestos
-        //lo voy a poder usar para calcular precio con y sin iva del paquete
-
-// usar el this y determino objetos del paquete
 class PaqueteViaje {
 
     constructor(destino, precio, dias, personas) {
@@ -36,6 +30,15 @@ const paqueteChile = new PaqueteViaje("chile", 400, 5, 2);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 10, 2);
 
 
+// array de objetos con los paquetes
+
+const paquetes = [
+    paqueteBrasil,
+    paqueteChile,
+    paqueteMexico
+];
+
+
 // array para guardar los paquetes del carrito
 
 const carrito = [];
@@ -43,8 +46,8 @@ const carrito = [];
 
 // funcion para calcular el costo total del viaje
 
-function calcularTotal(paquete) {
-    return paquete.precio * paquete.personas * paquete.dias;
+function calcularTotal(paquete, personas, dias) {
+    return paquete.precio * personas * dias;
 }
 
 
@@ -104,9 +107,7 @@ console.log("paquete mexico:");
 paqueteMexico.verPrecios();
 
 
-// loop para elegir paquetes o terminar de elegir y luego avanzar. identifico numoero de paqute con 1 2 3 
-
-
+// loop para elegir paquetes
 
 let continuar;
 
@@ -119,43 +120,100 @@ do {
         "3 - mexico"
     ));
 
-    let paqueteElegido;
+    let destinoElegido;
 
     if (opcion === 1) {
-        paqueteElegido = paqueteBrasil;
+
+        destinoElegido = "brasil";
+
     } else if (opcion === 2) {
 
-        paqueteElegido = paqueteChile;
+        destinoElegido = "chile";
+
     } else if (opcion === 3) {
-        paqueteElegido = paqueteMexico;
+
+        destinoElegido = "mexico";
+
     } else {
 
         alert("opcion no valida");
+        continuar = false;
     }
 
 
-    if (paqueteElegido) {
+    if (destinoElegido) {
+
+        // find busca el paquete elegido dentro del array de objetos
+
+        const paqueteElegido = paquetes.find(
+            paquete => paquete.destino === destinoElegido
+        );
+
 
         const nombre = prompt("ingrese su nombre");
 
         const personas = parseInt(
             prompt("cuantas personas viajan?")
         );
+
         const dias = parseInt(
             prompt("de cuantos dias queres que sea tu viaje?")
         );
 
-                const presupuesto = parseFloat(
-                    prompt("cuanto queres gastar en tu viaje?")
-                );
+        const presupuesto = parseFloat(
+            prompt("cuanto queres gastar en tu viaje?")
+        );
 
 
-        const total = calcularTotal(paqueteElegido);
+        // calculo el total usando los datos ingresados
+
+        const total = calcularTotal(
+            paqueteElegido,
+            personas,
+            dias
+        );
+
 
         const resultadoPresupuesto = revisarPresupuesto(
             total,
             presupuesto
         );
+
+
+        // filter busca los paquetes que entran en el presupuesto
+
+        const paquetesEnPresupuesto = paquetes.filter(
+            paquete => calcularTotal(paquete, personas, dias) <= presupuesto
+        );
+
+
+        // map crea un nuevo array con los precios con impuestos
+
+        const paquetesConImpuestos = paquetes.map(
+            paquete => {
+
+                const precioConImpuestos = paquete.precio * 1.21;
+
+                return {
+                    destino: paquete.destino,
+                    precio: paquete.precio,
+                    precioConImpuestos: precioConImpuestos
+                };
+
+            }
+        );
+
+
+        // muestro en consola los resultados de los metodos
+
+        console.log("paquete encontrado con find:");
+        console.log(paqueteElegido);
+
+        console.log("paquetes dentro del presupuesto con filter:");
+        console.log(paquetesEnPresupuesto);
+
+        console.log("paquetes con precios con impuestos con map:");
+        console.log(paquetesConImpuestos);
 
 
         const mensaje = "hola " + nombre +
@@ -167,22 +225,52 @@ do {
             "\n" + resultadoPresupuesto;
 
 
-
-
-
         console.log(mensaje);
         alert(mensaje);
 
 
-        continuar = confirm("queres cotizar otro viaje?");
+        // pregunto si quiere agregar el paquete al carrito
 
-        if (!continuar) {
-            alert("hasta pronto " + nombre + " , no dudes en consultarnos por el resto de los destinos que tenemos disponibles");
+        const agregar = confirm(
+            "queres agregar este paquete al carrito?"
+        );
+
+        if (agregar) {
+            agregarAlCarrito(paqueteElegido);
         }
 
-    } else {
 
-        continuar = false;
+        // muestro los paquetes que entran en el presupuesto
+
+        if (paquetesEnPresupuesto.length > 0) {
+
+            console.log("destinos que entran en tu presupuesto:");
+
+            for (const paquete of paquetesEnPresupuesto) {
+
+                console.log(paquete.destino);
+
+            }
+
+        } else {
+
+            console.log("no hay paquetes dentro de tu presupuesto");
+
+        }
+
+
+        continuar = confirm("queres cotizar otro viaje?");
+
+
+        if (!continuar) {
+
+            alert(
+                "hasta pronto " +
+                nombre +
+                ", no dudes en consultarnos por el resto de los destinos que tenemos disponibles"
+            );
+
+        }
 
     }
 
