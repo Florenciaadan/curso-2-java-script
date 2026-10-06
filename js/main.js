@@ -160,57 +160,58 @@ function mostrarPaquetes(lista) {
         contenedorPaquetes.innerHTML =
             "<p>no se encontraron paquetes</p>";
 
-        return;
+    } else {
+
+        lista.forEach(function (paquete) {
+
+            const tarjeta =
+                document.createElement("div");
+
+
+            tarjeta.classList.add(
+                "tarjeta-paquete"
+            );
+
+
+            tarjeta.innerHTML = `
+
+                <h3>
+                    ${paquete.destino}
+                </h3>
+
+                <p>
+                    precio: $${paquete.precio}
+                </p>
+
+                <p>
+                    dias: ${paquete.dias}
+                </p>
+
+                <p>
+                    personas: ${paquete.personas}
+                </p>
+
+                <p class="precio-total">
+                    total: $${calcularTotal(paquete)}
+                </p>
+
+                <button
+                    class="boton-carrito"
+                    data-destino="${paquete.destino}"
+                >
+                    agregar al carrito
+                </button>
+
+            `;
+
+
+            contenedorPaquetes.appendChild(
+                tarjeta
+            );
+
+        });
 
     }
-
-
-    lista.forEach(function (paquete) {
-
-        const tarjeta = document.createElement("div");
-
-        tarjeta.classList.add(
-            "tarjeta-paquete"
-        );
-
-
-        tarjeta.innerHTML = `
-
-            <h3>
-                ${paquete.destino}
-            </h3>
-
-            <p>
-                precio: $${paquete.precio}
-            </p>
-
-            <p>
-                dias: ${paquete.dias}
-            </p>
-
-            <p>
-                personas: ${paquete.personas}
-            </p>
-
-            <p class="precio-total">
-                total: $${calcularTotal(paquete)}
-            </p>
-
-            <button
-                class="boton-carrito"
-                data-destino="${paquete.destino}"
-            >
-                agregar al carrito
-            </button>
-
-        `;
-
-
-        contenedorPaquetes.appendChild(
-            tarjeta
-        );
-
-    });
 
 }
 
@@ -232,69 +233,72 @@ function mostrarCarrito() {
 
         totalCarrito.textContent = "";
 
-        return;
+    } else {
+
+        carrito.forEach(
+            function (paquete, indice) {
+
+                const tarjeta =
+                    document.createElement("div");
+
+
+                tarjeta.classList.add(
+                    "tarjeta-carrito"
+                );
+
+
+                tarjeta.innerHTML = `
+
+                    <div>
+
+                        <h3>
+                            ${paquete.destino}
+                        </h3>
+
+                        <p>
+                            ${paquete.personas} personas -
+                            ${paquete.dias} dias
+                        </p>
+
+                        <p>
+                            total: $${calcularTotal(paquete)}
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="boton-eliminar"
+                        data-indice="${indice}"
+                    >
+                        eliminar
+                    </button>
+
+                `;
+
+
+                contenedorCarrito.appendChild(
+                    tarjeta
+                );
+
+            }
+        );
+
+
+        let total = 0;
+
+
+        carrito.forEach(function (paquete) {
+
+            total += calcularTotal(paquete);
+
+        });
+
+
+        totalCarrito.textContent =
+            "total del carrito: $" + total;
 
     }
-
-
-    carrito.forEach(function (paquete, indice) {
-
-        const tarjeta = document.createElement("div");
-
-        tarjeta.classList.add(
-            "tarjeta-carrito"
-        );
-
-
-        tarjeta.innerHTML = `
-
-            <div>
-
-                <h3>
-                    ${paquete.destino}
-                </h3>
-
-                <p>
-                    ${paquete.personas} personas -
-                    ${paquete.dias} dias
-                </p>
-
-                <p>
-                    total: $${calcularTotal(paquete)}
-                </p>
-
-            </div>
-
-
-            <button
-                class="boton-eliminar"
-                data-indice="${indice}"
-            >
-                eliminar
-            </button>
-
-        `;
-
-
-        contenedorCarrito.appendChild(
-            tarjeta
-        );
-
-    });
-
-
-    let total = 0;
-
-
-    carrito.forEach(function (paquete) {
-
-        total += calcularTotal(paquete);
-
-    });
-
-
-    totalCarrito.textContent =
-        "total del carrito: $" + total;
 
 }
 
@@ -308,32 +312,37 @@ formulario.addEventListener(
         evento.preventDefault();
 
 
-        const destino = inputDestino.value
-            .trim()
-            .toLowerCase();
+        const destino =
+            inputDestino.value
+                .trim()
+                .toLowerCase();
 
 
-        const precio = parseFloat(
-            inputPrecio.value
-        );
+        const precio =
+            parseFloat(
+                inputPrecio.value
+            );
 
 
-        const dias = parseInt(
-            inputDias.value
-        );
+        const dias =
+            parseInt(
+                inputDias.value
+            );
 
 
-        const personas = parseInt(
-            inputPersonas.value
-        );
+        const personas =
+            parseInt(
+                inputPersonas.value
+            );
 
 
-        const nuevoPaquete = new PaqueteViaje(
-            destino,
-            precio,
-            dias,
-            personas
-        );
+        const nuevoPaquete =
+            new PaqueteViaje(
+                destino,
+                precio,
+                dias,
+                personas
+            );
 
 
         paquetes.push(
