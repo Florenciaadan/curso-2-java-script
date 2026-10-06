@@ -1,7 +1,4 @@
-
-
-
-
+// clase para crear los paquetes de viaje
 
 class PaqueteViaje {
 
@@ -12,26 +9,36 @@ class PaqueteViaje {
         this.personas = personas;
     }
 
-
-
-    verPrecios() {
-        const precioConImpuestos = this.precio * 1.21;
-
-        console.log("destino: " + this.destino);
-        console.log("precio sin impuestos: $" + this.precio);
-        console.log("precio con impuestos: $" + precioConImpuestos);
-    }
 }
 
 
+// creo los paquetes que ya tenia del proyecto anterior
 
-const paqueteBrasil = new PaqueteViaje("brasil", 500, 7, 2);
+const paqueteBrasil = new PaqueteViaje(
+    "brasil",
+    500,
+    7,
+    2
+);
 
-const paqueteChile = new PaqueteViaje("chile", 400, 5, 2);
 
-const paqueteMexico = new PaqueteViaje("mexico", 800, 10, 2);
+const paqueteChile = new PaqueteViaje(
+    "chile",
+    400,
+    5,
+    2
+);
 
 
+const paqueteMexico = new PaqueteViaje(
+    "mexico",
+    800,
+    10,
+    2
+);
+
+
+// array de objetos
 
 const paquetes = [
     paqueteBrasil,
@@ -40,258 +47,388 @@ const paquetes = [
 ];
 
 
-
+// array para guardar los paquetes del carrito
 
 const carrito = [];
 
 
+// selecciono elementos del DOM
+
+const formulario = document.getElementById(
+    "formulario-paquete"
+);
+
+const inputDestino = document.getElementById(
+    "destino"
+);
+
+const inputPrecio = document.getElementById(
+    "precio"
+);
+
+const inputDias = document.getElementById(
+    "dias"
+);
+
+const inputPersonas = document.getElementById(
+    "personas"
+);
+
+const buscador = document.getElementById(
+    "buscador"
+);
+
+const contenedorPaquetes = document.getElementById(
+    "contenedor-paquetes"
+);
+
+const contenedorCarrito = document.getElementById(
+    "contenedor-carrito"
+);
+
+const totalCarrito = document.getElementById(
+    "total-carrito"
+);
+
+const mensaje = document.getElementById(
+    "mensaje"
+);
+
+const cantidadPaquetes = document.getElementById(
+    "cantidad-paquetes"
+);
+
+const cantidadCarrito = document.getElementById(
+    "cantidad-carrito"
+);
 
 
-function calcularTotal(paquete, personas, dias) {
-    return paquete.precio * personas * dias;
+// funcion para calcular el total de un paquete
+
+function calcularTotal(paquete) {
+
+    return paquete.precio *
+        paquete.personas *
+        paquete.dias;
+
 }
 
 
+// funcion para mostrar un mensaje en pantalla
+
+function mostrarMensaje(texto) {
+
+    mensaje.textContent = texto;
+
+    mensaje.classList.add("mostrar");
+
+    setTimeout(function () {
+
+        mensaje.classList.remove("mostrar");
+
+    }, 2500);
+
+}
 
 
-const revisarPresupuesto = (total, presupuesto) => {
+// funcion para mostrar los paquetes
 
-    if (total > presupuesto) {
-        return "el viaje supera tu presupuesto";
-    } else {
-        return "el viaje esta dentro de tu presupuesto";
+function mostrarPaquetes(lista) {
+
+    contenedorPaquetes.innerHTML = "";
+
+    cantidadPaquetes.textContent =
+        lista.length + " paquetes";
+
+
+    if (lista.length === 0) {
+
+        contenedorPaquetes.innerHTML =
+            "<p class='sin-resultados'>no se encontraron paquetes</p>";
+
+        return;
+
     }
 
-};
+
+    lista.forEach(function (paquete, indice) {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.classList.add("tarjeta-paquete");
 
 
+        tarjeta.innerHTML = `
+            <div class="contenido-paquete">
+
+                <h3>${paquete.destino}</h3>
+
+                <p>precio: $${paquete.precio}</p>
+
+                <p>dias: ${paquete.dias}</p>
+
+                <p>personas: ${paquete.personas}</p>
+
+                <p class="precio-total">
+                    total: $${calcularTotal(paquete)}
+                </p>
+
+            </div>
+
+            <button
+                class="boton-carrito"
+                data-indice="${indice}"
+            >
+                agregar al carrito
+            </button>
+        `;
 
 
-function agregarAlCarrito(paquete) {
+        contenedorPaquetes.appendChild(tarjeta);
 
-    carrito.push(paquete);
-
-    alert("se agrego al carrito el paquete a " + paquete.destino);
+    });
 
 }
 
 
+// funcion para mostrar el carrito
 
+function mostrarCarrito() {
 
-function verCarrito() {
+    contenedorCarrito.innerHTML = "";
 
-    console.log("paquetes en el carrito:");
+    cantidadCarrito.textContent =
+        carrito.length + " paquetes";
+
 
     if (carrito.length === 0) {
 
-        console.log("el carrito esta vacio");
+        contenedorCarrito.innerHTML =
+            "<p class='sin-resultados'>el carrito esta vacio</p>";
 
-    } else {
+        totalCarrito.textContent = "";
 
-        for (const paquete of carrito) {
-
-            console.log(
-                "destino: " + paquete.destino +
-                " - precio: $" + paquete.precio +
-                " - dias: " + paquete.dias +
-                " - personas: " + paquete.personas
-            );
-
-        }
+        return;
 
     }
+
+
+    carrito.forEach(function (paquete, indice) {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.classList.add("tarjeta-carrito");
+
+
+        tarjeta.innerHTML = `
+            <div>
+
+                <h3>${paquete.destino}</h3>
+
+                <p>
+                    ${paquete.personas} personas -
+                    ${paquete.dias} dias
+                </p>
+
+                <p>
+                    total: $${calcularTotal(paquete)}
+                </p>
+
+            </div>
+
+            <button
+                class="boton-eliminar"
+                data-indice="${indice}"
+            >
+                eliminar
+            </button>
+        `;
+
+
+        contenedorCarrito.appendChild(tarjeta);
+
+    });
+
+
+    let total = 0;
+
+
+    carrito.forEach(function (paquete) {
+
+        total += calcularTotal(paquete);
+
+    });
+
+
+    totalCarrito.textContent =
+        "total del carrito: $" + total;
 
 }
 
 
+// evento para agregar un nuevo paquete
+
+formulario.addEventListener(
+    "submit",
+    function (evento) {
+
+        evento.preventDefault();
 
 
-console.log("paquete brasil:");
-paqueteBrasil.verPrecios();
+        const destino = inputDestino.value
+            .trim()
+            .toLowerCase();
 
-console.log("paquete chile:");
-paqueteChile.verPrecios();
+        const precio = parseFloat(
+            inputPrecio.value
+        );
 
-console.log("paquete mexico:");
-paqueteMexico.verPrecios();
+        const dias = parseInt(
+            inputDias.value
+        );
 
-
-
-
-let continuar;
-
-do {
-
-    const nombre = prompt("ingrese su nombre");
-
-    const personas = parseInt(
-        prompt("cuantas personas viajan?")
-    );
-
-    const dias = parseInt(
-        prompt("de cuantos dias queres que sea tu viaje?")
-    );
-
-    const presupuesto = parseFloat(
-        prompt("cuanto queres gastar en tu viaje?")
-    );
-
-
-
-
-    const paquetesQuePuedeComprar = paquetes.filter(
-        paquete => calcularTotal(paquete, personas, dias) <= presupuesto
-    );
-
-
-
-
-    console.log("paquetes que puede comprar segun su presupuesto:");
-    console.log(paquetesQuePuedeComprar);
-
-
-
-    if (paquetesQuePuedeComprar.length > 0) {
-
-        let mensajePaquetes =
-            "con tu presupuesto podes elegir:\n";
-
-        for (
-            let i = 0;
-            i < paquetesQuePuedeComprar.length;
-            i++
-        ) {
-
-            const paquete = paquetesQuePuedeComprar[i];
-
-            const precio = calcularTotal(
-                paquete,
-                personas,
-                dias
-            );
-
-            mensajePaquetes +=
-                (i + 1) +
-                " - " +
-                paquete.destino +
-                " - $" +
-                precio +
-                "\n";
-        }
-
-
-        alert(mensajePaquetes);
-
-
-
-
-        const agregar = confirm(
-            "queres agregar alguno de estos paquetes al carrito?"
+        const personas = parseInt(
+            inputPersonas.value
         );
 
 
-        if (agregar) {
+        const nuevoPaquete = new PaqueteViaje(
+            destino,
+            precio,
+            dias,
+            personas
+        );
 
-            const numeroPaquete = parseInt(
-                prompt(
-                    mensajePaquetes +
-                    "\ningresa el numero del paquete que queres agregar"
-                )
+
+        paquetes.push(nuevoPaquete);
+
+
+        formulario.reset();
+
+
+        mostrarPaquetes(paquetes);
+
+        mostrarMensaje(
+            "el paquete a " +
+            destino +
+            " fue agregado correctamente"
+        );
+
+    }
+);
+
+
+// evento de teclado para buscar destinos
+
+buscador.addEventListener(
+    "input",
+    function () {
+
+        const textoBuscado = buscador.value
+            .trim()
+            .toLowerCase();
+
+
+        const paquetesFiltrados = paquetes.filter(
+            function (paquete) {
+
+                return paquete.destino.includes(
+                    textoBuscado
+                );
+
+            }
+        );
+
+
+        mostrarPaquetes(paquetesFiltrados);
+
+    }
+);
+
+
+// evento para agregar paquetes al carrito
+
+contenedorPaquetes.addEventListener(
+    "click",
+    function (evento) {
+
+        if (
+            evento.target.classList.contains(
+                "boton-carrito"
+            )
+        ) {
+
+            const indice = parseInt(
+                evento.target.dataset.indice
             );
 
 
+            const paquete = paquetes[indice];
 
 
-            const paqueteElegido =
-                paquetesQuePuedeComprar[numeroPaquete - 1];
+            if (paquete) {
+
+                carrito.push(paquete);
 
 
-            if (paqueteElegido) {
+                mostrarCarrito();
 
-   
 
-                const paqueteEncontrado = paquetes.find(
-                    paquete =>
-                        paquete.destino === paqueteElegido.destino
+                mostrarMensaje(
+                    "se agrego " +
+                    paquete.destino +
+                    " al carrito"
                 );
-
-
-                agregarAlCarrito(paqueteEncontrado);
-
-
-
-                console.log("carrito actualizado:");
-                verCarrito();
-
-                alert(
-                    "carrito actualizado. revisa la consola para verlo."
-                );
-
-            } else {
-
-                alert("numero de paquete no valido");
 
             }
 
         }
 
-    } else {
-
-        alert(
-            "no hay paquetes disponibles con ese presupuesto."
-        );
-
-        console.log(
-            "no hay paquetes dentro del presupuesto"
-        );
-
     }
+);
 
 
+// evento para eliminar paquetes del carrito
+
+contenedorCarrito.addEventListener(
+    "click",
+    function (evento) {
+
+        if (
+            evento.target.classList.contains(
+                "boton-eliminar"
+            )
+        ) {
+
+            const indice = parseInt(
+                evento.target.dataset.indice
+            );
 
 
-    const paquetesConImpuestos = paquetes.map(
-        paquete => {
+            const paqueteEliminado =
+                carrito[indice];
 
-            const precioConImpuestos =
-                paquete.precio * 1.21;
 
-            return {
-                destino: paquete.destino,
-                precio: paquete.precio,
-                precioConImpuestos: precioConImpuestos
-            };
+            carrito.splice(indice, 1);
+
+
+            mostrarCarrito();
+
+
+            mostrarMensaje(
+                "se elimino " +
+                paqueteEliminado.destino +
+                " del carrito"
+            );
 
         }
-    );
-
-
-
-
-    console.log("paquetes con precios con impuestos:");
-    console.log(paquetesConImpuestos);
-
-
-
-
-    continuar = confirm(
-        "queres cotizar otro viaje?"
-    );
-
-
-    if (!continuar) {
-
-        alert(
-            "hasta pronto " +
-            nombre +
-            ", no dudes en consultarnos por el resto de los destinos que tenemos disponibles"
-        );
 
     }
-
-} while (continuar);
-
+);
 
 
-console.log("carrito final:");
-verCarrito();
+// muestro los paquetes cuando carga la pagina
+
+mostrarPaquetes(paquetes);
+
+mostrarCarrito();
