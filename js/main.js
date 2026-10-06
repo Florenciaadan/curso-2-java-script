@@ -14,42 +14,60 @@ class PaqueteViaje {
 }
 
 
-// creo los paquetes que ya tenia del proyecto anterior
+// creo los paquetes disponibles de la agencia
 
 const paqueteBrasil = new PaqueteViaje(
     "brasil",
     500,
-    7,
-    2
+    1,
+    1
+);
+
+
+const paquetePeru = new PaqueteViaje(
+    "peru",
+    600,
+    1,
+    1
+);
+
+
+const paqueteColombia = new PaqueteViaje(
+    "colombia",
+    700,
+    1,
+    1
 );
 
 
 const paqueteChile = new PaqueteViaje(
     "chile",
     400,
-    5,
-    2
+    1,
+    1
 );
 
 
 const paqueteMexico = new PaqueteViaje(
     "mexico",
     800,
-    10,
-    2
+    1,
+    1
 );
 
 
-// array de objetos
+// array de objetos con los paquetes disponibles
 
 const paquetes = [
     paqueteBrasil,
+    paquetePeru,
+    paqueteColombia,
     paqueteChile,
     paqueteMexico
 ];
 
 
-// array para guardar los paquetes del carrito
+// array para guardar las cotizaciones del carrito
 
 const carrito = [];
 
@@ -57,7 +75,7 @@ const carrito = [];
 // selecciono elementos del DOM
 
 const formulario = document.getElementById(
-    "formulario-paquete"
+    "formulario-viaje"
 );
 
 
@@ -66,18 +84,13 @@ const inputDestino = document.getElementById(
 );
 
 
-const inputPrecio = document.getElementById(
-    "precio"
+const inputPersonas = document.getElementById(
+    "personas"
 );
 
 
 const inputDias = document.getElementById(
     "dias"
-);
-
-
-const inputPersonas = document.getElementById(
-    "personas"
 );
 
 
@@ -88,6 +101,11 @@ const buscador = document.getElementById(
 
 const contenedorPaquetes = document.getElementById(
     "contenedor-paquetes"
+);
+
+
+const contenedorCotizacion = document.getElementById(
+    "contenedor-cotizacion"
 );
 
 
@@ -116,7 +134,7 @@ const mensaje = document.getElementById(
 );
 
 
-// funcion para calcular el total de un paquete
+// funcion para calcular el precio del viaje
 
 function calcularTotal(paquete) {
 
@@ -127,7 +145,7 @@ function calcularTotal(paquete) {
 }
 
 
-// funcion para mostrar un mensaje en pantalla
+// funcion para mostrar mensajes
 
 function mostrarMensaje(texto) {
 
@@ -145,20 +163,20 @@ function mostrarMensaje(texto) {
 }
 
 
-// funcion para mostrar los paquetes
+// funcion para mostrar los destinos
 
 function mostrarPaquetes(lista) {
 
     contenedorPaquetes.innerHTML = "";
 
     cantidadPaquetes.textContent =
-        lista.length + " paquetes";
+        lista.length + " destinos";
 
 
     if (lista.length === 0) {
 
         contenedorPaquetes.innerHTML =
-            "<p>no se encontraron paquetes</p>";
+            "<p>no se encontraron destinos</p>";
 
     } else {
 
@@ -180,26 +198,19 @@ function mostrarPaquetes(lista) {
                 </h3>
 
                 <p>
-                    precio: $${paquete.precio}
+                    precio base:
+                    $${paquete.precio}
                 </p>
 
                 <p>
-                    dias: ${paquete.dias}
-                </p>
-
-                <p>
-                    personas: ${paquete.personas}
-                </p>
-
-                <p class="precio-total">
-                    total: $${calcularTotal(paquete)}
+                    precio por persona y dia
                 </p>
 
                 <button
-                    class="boton-carrito"
+                    class="boton-consultar"
                     data-destino="${paquete.destino}"
                 >
-                    agregar al carrito
+                    consultar
                 </button>
 
             `;
@@ -216,6 +227,78 @@ function mostrarPaquetes(lista) {
 }
 
 
+// funcion para mostrar la cotizacion
+
+function mostrarCotizacion(paquete) {
+
+    const total =
+        calcularTotal(paquete);
+
+
+    contenedorCotizacion.innerHTML = `
+
+        <div class="tarjeta-cotizacion">
+
+            <h3>
+                viaje a ${paquete.destino}
+            </h3>
+
+            <p>
+                personas: ${paquete.personas}
+            </p>
+
+            <p>
+                dias: ${paquete.dias}
+            </p>
+
+            <p>
+                precio por persona y dia:
+                $${paquete.precio}
+            </p>
+
+            <p class="precio-total">
+                total del viaje: $${total}
+            </p>
+
+            <button
+                id="boton-agregar-cotizacion"
+            >
+                agregar al carrito
+            </button>
+
+        </div>
+
+    `;
+
+
+    const botonAgregar =
+        document.getElementById(
+            "boton-agregar-cotizacion"
+        );
+
+
+    botonAgregar.addEventListener(
+        "click",
+        function () {
+
+            carrito.push(
+                paquete
+            );
+
+
+            mostrarCarrito();
+
+
+            mostrarMensaje(
+                "el viaje fue agregado al carrito"
+            );
+
+        }
+    );
+
+}
+
+
 // funcion para mostrar el carrito
 
 function mostrarCarrito() {
@@ -223,7 +306,7 @@ function mostrarCarrito() {
     contenedorCarrito.innerHTML = "";
 
     cantidadCarrito.textContent =
-        carrito.length + " paquetes";
+        carrito.length + " viajes";
 
 
     if (carrito.length === 0) {
@@ -256,12 +339,15 @@ function mostrarCarrito() {
                         </h3>
 
                         <p>
-                            ${paquete.personas} personas -
-                            ${paquete.dias} dias
+                            ${paquete.personas}
+                            personas -
+                            ${paquete.dias}
+                            dias
                         </p>
 
                         <p>
-                            total: $${calcularTotal(paquete)}
+                            total:
+                            $${calcularTotal(paquete)}
                         </p>
 
                     </div>
@@ -290,7 +376,9 @@ function mostrarCarrito() {
 
         carrito.forEach(function (paquete) {
 
-            total += calcularTotal(paquete);
+            total += calcularTotal(
+                paquete
+            );
 
         });
 
@@ -302,7 +390,8 @@ function mostrarCarrito() {
 
 }
 
-// evento para agregar un nuevo paquete
+
+// evento para consultar un viaje
 
 formulario.addEventListener(
     "submit",
@@ -312,14 +401,12 @@ formulario.addEventListener(
 
 
         const destino =
-            inputDestino.value
-                .trim()
-                .toLowerCase();
+            inputDestino.value;
 
 
-        const precio =
-            parseFloat(
-                inputPrecio.value
+        const personas =
+            parseInt(
+                inputPersonas.value
             );
 
 
@@ -329,45 +416,42 @@ formulario.addEventListener(
             );
 
 
-        const personas =
-            parseInt(
-                inputPersonas.value
+        // busco el destino seleccionado
+
+        const paqueteBase =
+            paquetes.find(
+                function (paquete) {
+
+                    return paquete.destino === destino;
+
+                }
             );
 
 
-        const nuevoPaquete =
-            new PaqueteViaje(
-                destino,
-                precio,
-                dias,
-                personas
+        if (paqueteBase) {
+
+            // creo una nueva cotizacion
+            // usando el precio del destino
+
+            const nuevaCotizacion =
+                new PaqueteViaje(
+                    paqueteBase.destino,
+                    paqueteBase.precio,
+                    dias,
+                    personas
+                );
+
+
+            mostrarCotizacion(
+                nuevaCotizacion
             );
 
 
-        paquetes.push(
-            nuevoPaquete
-        );
+            mostrarMensaje(
+                "cotizacion realizada"
+            );
 
-
-        carrito.push(
-            nuevoPaquete
-        );
-
-
-        formulario.reset();
-
-
-        mostrarPaquetes(
-            paquetes
-        );
-
-
-        mostrarCarrito();
-
-
-        mostrarMensaje(
-            "el paquete fue agregado al carrito"
-        );
+        }
 
     }
 );
@@ -405,7 +489,7 @@ buscador.addEventListener(
 );
 
 
-// evento para agregar paquetes al carrito
+// evento para consultar desde las tarjetas
 
 contenedorPaquetes.addEventListener(
     "click",
@@ -413,12 +497,16 @@ contenedorPaquetes.addEventListener(
 
         if (
             evento.target.classList.contains(
-                "boton-carrito"
+                "boton-consultar"
             )
         ) {
 
             const destino =
                 evento.target.dataset.destino;
+
+
+            inputDestino.value =
+                destino;
 
 
             const paquete =
@@ -433,18 +521,29 @@ contenedorPaquetes.addEventListener(
 
             if (paquete) {
 
-                carrito.push(
-                    paquete
-                );
+                const personas =
+                    parseInt(
+                        inputPersonas.value
+                    );
 
 
-                mostrarCarrito();
+                const dias =
+                    parseInt(
+                        inputDias.value
+                    );
 
 
-                mostrarMensaje(
-                    "se agrego " +
-                    paquete.destino +
-                    " al carrito"
+                const nuevaCotizacion =
+                    new PaqueteViaje(
+                        paquete.destino,
+                        paquete.precio,
+                        dias,
+                        personas
+                    );
+
+
+                mostrarCotizacion(
+                    nuevaCotizacion
                 );
 
             }
@@ -455,7 +554,7 @@ contenedorPaquetes.addEventListener(
 );
 
 
-// evento para eliminar paquetes del carrito
+// evento para eliminar viajes del carrito
 
 contenedorCarrito.addEventListener(
     "click",
@@ -498,7 +597,7 @@ contenedorCarrito.addEventListener(
 );
 
 
-// muestro los paquetes cuando carga la pagina
+// muestro los destinos cuando carga la pagina
 
 mostrarPaquetes(
     paquetes

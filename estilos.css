@@ -38,8 +38,6 @@ header h1 {
 
 header p {
     margin: 0;
-
-    font-size: 16px;
 }
 
 
@@ -78,10 +76,11 @@ h2 {
 
 /* formulario */
 
-#formulario-paquete {
+#formulario-viaje {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 15px;
 }
@@ -103,7 +102,8 @@ h2 {
 }
 
 
-.campo input {
+.campo input,
+.campo select {
     padding: 10px;
 
     border: 1px solid #9ed3e2;
@@ -116,7 +116,7 @@ h2 {
 }
 
 
-#formulario-paquete button {
+#formulario-viaje button {
     grid-column: 1 / -1;
 
     padding: 12px;
@@ -135,7 +135,7 @@ h2 {
 }
 
 
-#formulario-paquete button:hover {
+#formulario-viaje button:hover {
     background-color: #287c9c;
 }
 
@@ -157,19 +157,13 @@ h2 {
 }
 
 
-#buscador:focus {
-    outline: none;
-
-    border-color: #3fa5c3;
-}
-
-
-/* paquetes */
+/* destinos */
 
 #contenedor-paquetes {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 18px;
 }
@@ -178,7 +172,7 @@ h2 {
 .tarjeta-paquete {
     background-color: #f3fbfd;
 
-    border: 1px solid #b9dfeb;
+    border: 1px solid #b9dfea;
 
     border-radius: 8px;
 
@@ -200,14 +194,8 @@ h2 {
 }
 
 
-.precio-total {
-    font-weight: bold;
-
-    color: #287c9c;
-}
-
-
-.boton-carrito {
+.boton-consultar,
+#boton-agregar-cotizacion {
     width: 100%;
 
     padding: 10px;
@@ -226,8 +214,40 @@ h2 {
 }
 
 
-.boton-carrito:hover {
+.boton-consultar:hover,
+#boton-agregar-cotizacion:hover {
     background-color: #287c9c;
+}
+
+
+/* cotizacion */
+
+.tarjeta-cotizacion {
+    background-color: #f3fbfd;
+
+    border: 1px solid #b9dfea;
+
+    border-radius: 8px;
+
+    padding: 20px;
+}
+
+
+.tarjeta-cotizacion h3 {
+    margin-top: 0;
+
+    color: #287c9c;
+
+    text-transform: capitalize;
+}
+
+
+.precio-total {
+    font-weight: bold;
+
+    color: #287c9c;
+
+    font-size: 18px;
 }
 
 
@@ -251,7 +271,7 @@ h2 {
 
     background-color: #f3fbfd;
 
-    border: 1px solid #b9dfeb;
+    border: 1px solid #b9dfea;
 
     border-radius: 8px;
 
@@ -288,7 +308,7 @@ h2 {
 }
 
 
-/* total del carrito */
+/* total */
 
 #total-carrito {
     margin-top: 15px;
@@ -337,7 +357,7 @@ h2 {
 
 @media (max-width: 700px) {
 
-    #formulario-paquete {
+    #formulario-viaje {
         grid-template-columns: 1fr;
     }
 

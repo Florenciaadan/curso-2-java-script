@@ -23,7 +23,7 @@
         <h1>gestor de viajes</h1>
 
         <p>
-            organizá tus proximas vacaciones y elegí el paquete que mas te conviene
+            encontrá tu proximo viaje y consultá el precio
         </p>
 
     </header>
@@ -31,12 +31,15 @@
 
     <main>
 
-        <section>
+        <!-- formulario para consultar un viaje -->
 
-            <h2>agregar un paquete</h2>
+        <section class="consulta">
+
+            <h2>consultar viaje</h2>
 
 
-            <form id="formulario-paquete">
+            <form id="formulario-viaje">
+
 
                 <div class="campo">
 
@@ -44,27 +47,46 @@
                         destino
                     </label>
 
-                    <input
-                        type="text"
-                        id="destino"
-                        placeholder="ej: brasil"
-                        required
-                    >
+
+                    <select id="destino">
+
+                        <option value="brasil">
+                            brasil
+                        </option>
+
+                        <option value="peru">
+                            peru
+                        </option>
+
+                        <option value="colombia">
+                            colombia
+                        </option>
+
+                        <option value="chile">
+                            chile
+                        </option>
+
+                        <option value="mexico">
+                            mexico
+                        </option>
+
+                    </select>
 
                 </div>
 
 
                 <div class="campo">
 
-                    <label for="precio">
-                        precio
+                    <label for="personas">
+                        personas
                     </label>
+
 
                     <input
                         type="number"
-                        id="precio"
-                        placeholder="ej: 500"
+                        id="personas"
                         min="1"
+                        value="2"
                         required
                     >
 
@@ -77,28 +99,12 @@
                         dias
                     </label>
 
+
                     <input
                         type="number"
                         id="dias"
-                        placeholder="ej: 7"
                         min="1"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="personas">
-                        personas
-                    </label>
-
-                    <input
-                        type="number"
-                        id="personas"
-                        placeholder="ej: 2"
-                        min="1"
+                        value="5"
                         required
                     >
 
@@ -106,17 +112,21 @@
 
 
                 <button type="submit">
-                    agregar paquete
+                    consultar viaje
                 </button>
+
 
             </form>
 
         </section>
 
 
-        <section>
+        <!-- buscador -->
+
+        <section class="busqueda">
 
             <h2>buscar destino</h2>
+
 
             <input
                 type="text"
@@ -127,31 +137,61 @@
         </section>
 
 
+        <!-- destinos disponibles -->
+
         <section>
 
-            <h2>paquetes disponibles</h2>
+            <h2>destinos disponibles</h2>
+
 
             <p id="cantidad-paquetes"></p>
+
 
             <div id="contenedor-paquetes"></div>
 
         </section>
 
 
+        <!-- cotizacion -->
+
+        <section>
+
+            <h2>mi cotizacion</h2>
+
+
+            <div id="contenedor-cotizacion">
+
+                <p>
+                    todavia no realizaste una consulta
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- carrito -->
+
         <section>
 
             <h2>mi carrito</h2>
 
+
             <p id="cantidad-carrito"></p>
 
+
             <div id="contenedor-carrito"></div>
+
 
             <div id="total-carrito"></div>
 
         </section>
 
 
+        <!-- mensaje -->
+
         <div id="mensaje"></div>
+
 
     </main>
 
