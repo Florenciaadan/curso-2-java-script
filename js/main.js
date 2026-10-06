@@ -3,10 +3,12 @@
 class PaqueteViaje {
 
     constructor(destino, precio, dias, personas) {
+
         this.destino = destino;
         this.precio = precio;
         this.dias = dias;
         this.personas = personas;
+
     }
 
 }
@@ -58,48 +60,59 @@ const formulario = document.getElementById(
     "formulario-paquete"
 );
 
+
 const inputDestino = document.getElementById(
     "destino"
 );
+
 
 const inputPrecio = document.getElementById(
     "precio"
 );
 
+
 const inputDias = document.getElementById(
     "dias"
 );
+
 
 const inputPersonas = document.getElementById(
     "personas"
 );
 
+
 const buscador = document.getElementById(
     "buscador"
 );
+
 
 const contenedorPaquetes = document.getElementById(
     "contenedor-paquetes"
 );
 
+
 const contenedorCarrito = document.getElementById(
     "contenedor-carrito"
 );
 
-const totalCarrito = document.getElementById(
-    "total-carrito"
-);
-
-const mensaje = document.getElementById(
-    "mensaje"
-);
 
 const cantidadPaquetes = document.getElementById(
     "cantidad-paquetes"
 );
 
+
 const cantidadCarrito = document.getElementById(
     "cantidad-carrito"
+);
+
+
+const totalCarrito = document.getElementById(
+    "total-carrito"
+);
+
+
+const mensaje = document.getElementById(
+    "mensaje"
 );
 
 
@@ -122,11 +135,12 @@ function mostrarMensaje(texto) {
 
     mensaje.classList.add("mostrar");
 
+
     setTimeout(function () {
 
         mensaje.classList.remove("mostrar");
 
-    }, 2500);
+    }, 2000);
 
 }
 
@@ -137,6 +151,7 @@ function mostrarPaquetes(lista) {
 
     contenedorPaquetes.innerHTML = "";
 
+
     cantidadPaquetes.textContent =
         lista.length + " paquetes";
 
@@ -144,47 +159,58 @@ function mostrarPaquetes(lista) {
     if (lista.length === 0) {
 
         contenedorPaquetes.innerHTML =
-            "<p class='sin-resultados'>no se encontraron paquetes</p>";
+            "<p>no se encontraron paquetes</p>";
 
         return;
 
     }
 
 
-    lista.forEach(function (paquete, indice) {
+    lista.forEach(function (paquete) {
 
         const tarjeta = document.createElement("div");
 
-        tarjeta.classList.add("tarjeta-paquete");
+
+        tarjeta.classList.add(
+            "tarjeta-paquete"
+        );
 
 
         tarjeta.innerHTML = `
-            <div class="contenido-paquete">
 
-                <h3>${paquete.destino}</h3>
+            <h3>
+                ${paquete.destino}
+            </h3>
 
-                <p>precio: $${paquete.precio}</p>
+            <p>
+                precio: $${paquete.precio}
+            </p>
 
-                <p>dias: ${paquete.dias}</p>
+            <p>
+                dias: ${paquete.dias}
+            </p>
 
-                <p>personas: ${paquete.personas}</p>
+            <p>
+                personas: ${paquete.personas}
+            </p>
 
-                <p class="precio-total">
-                    total: $${calcularTotal(paquete)}
-                </p>
-
-            </div>
+            <p class="precio-total">
+                total: $${calcularTotal(paquete)}
+            </p>
 
             <button
                 class="boton-carrito"
-                data-indice="${indice}"
+                data-destino="${paquete.destino}"
             >
                 agregar al carrito
             </button>
+
         `;
 
 
-        contenedorPaquetes.appendChild(tarjeta);
+        contenedorPaquetes.appendChild(
+            tarjeta
+        );
 
     });
 
@@ -197,6 +223,7 @@ function mostrarCarrito() {
 
     contenedorCarrito.innerHTML = "";
 
+
     cantidadCarrito.textContent =
         carrito.length + " paquetes";
 
@@ -204,7 +231,7 @@ function mostrarCarrito() {
     if (carrito.length === 0) {
 
         contenedorCarrito.innerHTML =
-            "<p class='sin-resultados'>el carrito esta vacio</p>";
+            "<p>el carrito esta vacio</p>";
 
         totalCarrito.textContent = "";
 
@@ -217,13 +244,19 @@ function mostrarCarrito() {
 
         const tarjeta = document.createElement("div");
 
-        tarjeta.classList.add("tarjeta-carrito");
+
+        tarjeta.classList.add(
+            "tarjeta-carrito"
+        );
 
 
         tarjeta.innerHTML = `
+
             <div>
 
-                <h3>${paquete.destino}</h3>
+                <h3>
+                    ${paquete.destino}
+                </h3>
 
                 <p>
                     ${paquete.personas} personas -
@@ -236,16 +269,20 @@ function mostrarCarrito() {
 
             </div>
 
+
             <button
                 class="boton-eliminar"
                 data-indice="${indice}"
             >
                 eliminar
             </button>
+
         `;
 
 
-        contenedorCarrito.appendChild(tarjeta);
+        contenedorCarrito.appendChild(
+            tarjeta
+        );
 
     });
 
@@ -279,13 +316,16 @@ formulario.addEventListener(
             .trim()
             .toLowerCase();
 
+
         const precio = parseFloat(
             inputPrecio.value
         );
 
+
         const dias = parseInt(
             inputDias.value
         );
+
 
         const personas = parseInt(
             inputPersonas.value
@@ -300,18 +340,21 @@ formulario.addEventListener(
         );
 
 
-        paquetes.push(nuevoPaquete);
+        paquetes.push(
+            nuevoPaquete
+        );
 
 
         formulario.reset();
 
 
-        mostrarPaquetes(paquetes);
+        mostrarPaquetes(
+            paquetes
+        );
+
 
         mostrarMensaje(
-            "el paquete a " +
-            destino +
-            " fue agregado correctamente"
+            "el paquete fue agregado"
         );
 
     }
@@ -324,23 +367,27 @@ buscador.addEventListener(
     "input",
     function () {
 
-        const textoBuscado = buscador.value
-            .trim()
-            .toLowerCase();
+        const textoBuscado =
+            buscador.value
+                .trim()
+                .toLowerCase();
 
 
-        const paquetesFiltrados = paquetes.filter(
-            function (paquete) {
+        const paquetesFiltrados =
+            paquetes.filter(
+                function (paquete) {
 
-                return paquete.destino.includes(
-                    textoBuscado
-                );
+                    return paquete.destino.includes(
+                        textoBuscado
+                    );
 
-            }
+                }
+            );
+
+
+        mostrarPaquetes(
+            paquetesFiltrados
         );
-
-
-        mostrarPaquetes(paquetesFiltrados);
 
     }
 );
@@ -358,17 +405,25 @@ contenedorPaquetes.addEventListener(
             )
         ) {
 
-            const indice = parseInt(
-                evento.target.dataset.indice
-            );
+            const destino =
+                evento.target.dataset.destino;
 
 
-            const paquete = paquetes[indice];
+            const paquete =
+                paquetes.find(
+                    function (paquete) {
+
+                        return paquete.destino === destino;
+
+                    }
+                );
 
 
             if (paquete) {
 
-                carrito.push(paquete);
+                carrito.push(
+                    paquete
+                );
 
 
                 mostrarCarrito();
@@ -400,16 +455,20 @@ contenedorCarrito.addEventListener(
             )
         ) {
 
-            const indice = parseInt(
-                evento.target.dataset.indice
-            );
+            const indice =
+                parseInt(
+                    evento.target.dataset.indice
+                );
 
 
             const paqueteEliminado =
                 carrito[indice];
 
 
-            carrito.splice(indice, 1);
+            carrito.splice(
+                indice,
+                1
+            );
 
 
             mostrarCarrito();
@@ -429,6 +488,9 @@ contenedorCarrito.addEventListener(
 
 // muestro los paquetes cuando carga la pagina
 
-mostrarPaquetes(paquetes);
+mostrarPaquetes(
+    paquetes
+);
+
 
 mostrarCarrito();

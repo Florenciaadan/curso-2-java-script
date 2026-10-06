@@ -8,24 +8,24 @@ body {
 
     font-family: Arial, sans-serif;
 
-    background-color: #eaf6fb;
+    background-color: #eaf7fb;
 
-    color: #23404a;
+    color: #24404a;
 }
 
 
 /* encabezado */
 
 header {
-    background-color: #8ed1e8;
+    background-color: #8ed3e8;
 
-    color: #ffffff;
+    color: white;
 
     text-align: center;
 
     padding: 30px 20px;
 
-    border-bottom: 5px solid #5bb9d6;
+    margin-bottom: 25px;
 }
 
 
@@ -43,38 +43,36 @@ header p {
 }
 
 
-/* contenido principal */
+/* contenido */
 
 main {
     width: 90%;
 
     max-width: 1000px;
 
-    margin: 30px auto;
+    margin: 0 auto;
 }
 
 
 /* secciones */
 
 section {
-    background-color: #ffffff;
+    background-color: white;
 
     padding: 25px;
 
     margin-bottom: 25px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    border: 1px solid #c5e7f2;
-
-    box-shadow: 0 3px 10px rgba(70, 150, 180, 0.12);
+    border: 1px solid #c5e7f0;
 }
 
 
 h2 {
     margin-top: 0;
 
-    color: #2d8eac;
+    color: #267f9d;
 }
 
 
@@ -83,7 +81,7 @@ h2 {
 #formulario-paquete {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
 
     gap: 15px;
 }
@@ -101,31 +99,27 @@ h2 {
 .campo label {
     font-weight: bold;
 
-    color: #397c91;
+    color: #356c7d;
 }
 
 
-.campo input,
-#buscador {
+.campo input {
     padding: 10px;
 
-    border: 1px solid #9ed5e5;
+    border: 1px solid #9ed3e2;
 
     border-radius: 6px;
 
     font-size: 15px;
 
-    background-color: #f7fcfe;
+    background-color: #f8fdff;
 }
 
 
-.campo input:focus,
-#buscador:focus {
+.campo input:focus {
     outline: none;
 
-    border-color: #49aeca;
-
-    background-color: #ffffff;
+    border-color: #4baac5;
 }
 
 
@@ -140,9 +134,9 @@ h2 {
 
     border-radius: 6px;
 
-    background-color: #4aa9c7;
+    background-color: #4baac5;
 
-    color: #ffffff;
+    color: white;
 
     font-size: 16px;
 
@@ -150,4 +144,224 @@ h2 {
 }
 
 
-#form
+#formulario-paquete button:hover {
+    background-color: #348fa9;
+}
+
+
+/* buscador */
+
+#buscador {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #9ed3e2;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    background-color: #f8fdff;
+}
+
+
+#buscador:focus {
+    outline: none;
+
+    border-color: #4baac5;
+}
+
+
+/* paquetes */
+
+#contenedor-paquetes {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.tarjeta-paquete {
+    background-color: #f5fbfd;
+
+    border: 1px solid #b9dfea;
+
+    border-radius: 8px;
+
+    padding: 18px;
+}
+
+
+.tarjeta-paquete h3 {
+    margin-top: 0;
+
+    color: #267f9d;
+
+    text-transform: capitalize;
+}
+
+
+.tarjeta-paquete p {
+    margin: 8px 0;
+}
+
+
+.precio-total {
+    font-weight: bold;
+
+    color: #267f9d;
+}
+
+
+.boton-carrito {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #4baac5;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.boton-carrito:hover {
+    background-color: #348fa9;
+}
+
+
+/* carrito */
+
+#contenedor-carrito {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.tarjeta-carrito {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background-color: #f5fbfd;
+
+    border: 1px solid #b9dfea;
+
+    border-radius: 8px;
+
+    padding: 15px;
+}
+
+
+.tarjeta-carrito h3 {
+    margin-top: 0;
+
+    color: #267f9d;
+
+    text-transform: capitalize;
+}
+
+
+.boton-eliminar {
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #73b9ce;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.boton-eliminar:hover {
+    background-color: #559fb7;
+}
+
+
+/* total del carrito */
+
+#total-carrito {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    background-color: #d9f1f7;
+
+    border-radius: 6px;
+
+    color: #267f9d;
+
+    font-weight: bold;
+
+    text-align: right;
+}
+
+
+/* mensaje */
+
+#mensaje {
+    position: fixed;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    padding: 12px 18px;
+
+    background-color: #267f9d;
+
+    color: white;
+
+    border-radius: 6px;
+
+    opacity: 0;
+}
+
+
+#mensaje.mostrar {
+    opacity: 1;
+}
+
+
+/* pantallas chicas */
+
+@media (max-width: 700px) {
+
+    #formulario-paquete {
+        grid-template-columns: 1fr;
+    }
+
+
+    #contenedor-paquetes {
+        grid-template-columns: 1fr;
+    }
+
+
+    .tarjeta-carrito {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}
