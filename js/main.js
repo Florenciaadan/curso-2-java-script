@@ -302,7 +302,6 @@ function mostrarCarrito() {
 
 }
 
-
 // evento para agregar un nuevo paquete
 
 formulario.addEventListener(
@@ -350,6 +349,11 @@ formulario.addEventListener(
         );
 
 
+        carrito.push(
+            nuevoPaquete
+        );
+
+
         formulario.reset();
 
 
@@ -358,8 +362,11 @@ formulario.addEventListener(
         );
 
 
+        mostrarCarrito();
+
+
         mostrarMensaje(
-            "el paquete fue agregado"
+            "el paquete fue agregado al carrito"
         );
 
     }
