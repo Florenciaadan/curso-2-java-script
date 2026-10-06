@@ -1,4 +1,4 @@
-// clase para crear los paquetes de viaje
+
 
 class PaqueteViaje {
 
@@ -14,7 +14,7 @@ class PaqueteViaje {
 }
 
 
-// creo los paquetes disponibles de la agencia
+
 
 const paqueteBrasil = new PaqueteViaje(
     "brasil",
@@ -56,7 +56,7 @@ const paqueteMexico = new PaqueteViaje(
 );
 
 
-// array de objetos con los paquetes disponibles
+
 
 const paquetes = [
     paqueteBrasil,
@@ -67,12 +67,11 @@ const paquetes = [
 ];
 
 
-// array para guardar las cotizaciones del carrito
+
 
 const carrito = [];
 
 
-// selecciono elementos del DOM
 
 const formulario = document.getElementById(
     "formulario-viaje"
@@ -134,7 +133,7 @@ const mensaje = document.getElementById(
 );
 
 
-// funcion para calcular el precio del viaje
+
 
 function calcularTotal(paquete) {
 
@@ -145,7 +144,7 @@ function calcularTotal(paquete) {
 }
 
 
-// funcion para mostrar mensajes
+
 
 function mostrarMensaje(texto) {
 
@@ -163,7 +162,6 @@ function mostrarMensaje(texto) {
 }
 
 
-// funcion para mostrar los destinos
 
 function mostrarPaquetes(lista) {
 
@@ -227,7 +225,6 @@ function mostrarPaquetes(lista) {
 }
 
 
-// funcion para mostrar la cotizacion
 
 function mostrarCotizacion(paquete) {
 
@@ -299,7 +296,6 @@ function mostrarCotizacion(paquete) {
 }
 
 
-// funcion para mostrar el carrito
 
 function mostrarCarrito() {
 
@@ -391,7 +387,6 @@ function mostrarCarrito() {
 }
 
 
-// evento para consultar un viaje
 
 formulario.addEventListener(
     "submit",
@@ -416,7 +411,6 @@ formulario.addEventListener(
             );
 
 
-        // busco el destino seleccionado
 
         const paqueteBase =
             paquetes.find(
@@ -430,8 +424,7 @@ formulario.addEventListener(
 
         if (paqueteBase) {
 
-            // creo una nueva cotizacion
-            // usando el precio del destino
+
 
             const nuevaCotizacion =
                 new PaqueteViaje(
@@ -456,8 +449,6 @@ formulario.addEventListener(
     }
 );
 
-
-// evento de teclado para buscar destinos
 
 buscador.addEventListener(
     "input",
@@ -489,7 +480,7 @@ buscador.addEventListener(
 );
 
 
-// evento para consultar desde las tarjetas
+
 
 contenedorPaquetes.addEventListener(
     "click",
@@ -554,7 +545,7 @@ contenedorPaquetes.addEventListener(
 );
 
 
-// evento para eliminar viajes del carrito
+
 
 contenedorCarrito.addEventListener(
     "click",
@@ -597,7 +588,6 @@ contenedorCarrito.addEventListener(
 );
 
 
-// muestro los destinos cuando carga la pagina
 
 mostrarPaquetes(
     paquetes
