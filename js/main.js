@@ -151,7 +151,6 @@ function mostrarPaquetes(lista) {
 
     contenedorPaquetes.innerHTML = "";
 
-
     cantidadPaquetes.textContent =
         lista.length + " paquetes";
 
@@ -169,7 +168,6 @@ function mostrarPaquetes(lista) {
     lista.forEach(function (paquete) {
 
         const tarjeta = document.createElement("div");
-
 
         tarjeta.classList.add(
             "tarjeta-paquete"
@@ -223,7 +221,6 @@ function mostrarCarrito() {
 
     contenedorCarrito.innerHTML = "";
 
-
     cantidadCarrito.textContent =
         carrito.length + " paquetes";
 
@@ -243,7 +240,6 @@ function mostrarCarrito() {
     carrito.forEach(function (paquete, indice) {
 
         const tarjeta = document.createElement("div");
-
 
         tarjeta.classList.add(
             "tarjeta-carrito"

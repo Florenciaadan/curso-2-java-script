@@ -17,7 +17,7 @@ body {
 /* encabezado */
 
 header {
-    background-color: #8ed3e8;
+    background-color: #7ec8df;
 
     color: white;
 
@@ -65,14 +65,14 @@ section {
 
     border-radius: 10px;
 
-    border: 1px solid #c5e7f0;
+    border: 1px solid #b9dfeb;
 }
 
 
 h2 {
     margin-top: 0;
 
-    color: #267f9d;
+    color: #287c9c;
 }
 
 
@@ -112,18 +112,9 @@ h2 {
 
     font-size: 15px;
 
-    background-color: #f8fdff;
+    background-color: #f5fcfe;
 }
 
-
-.campo input:focus {
-    outline: none;
-
-    border-color: #4baac5;
-}
-
-
-/* boton agregar */
 
 #formulario-paquete button {
     grid-column: 1 / -1;
@@ -134,7 +125,7 @@ h2 {
 
     border-radius: 6px;
 
-    background-color: #4baac5;
+    background-color: #3fa5c3;
 
     color: white;
 
@@ -145,7 +136,7 @@ h2 {
 
 
 #formulario-paquete button:hover {
-    background-color: #348fa9;
+    background-color: #287c9c;
 }
 
 
@@ -162,14 +153,14 @@ h2 {
 
     font-size: 15px;
 
-    background-color: #f8fdff;
+    background-color: #f5fcfe;
 }
 
 
 #buscador:focus {
     outline: none;
 
-    border-color: #4baac5;
+    border-color: #3fa5c3;
 }
 
 
@@ -185,9 +176,9 @@ h2 {
 
 
 .tarjeta-paquete {
-    background-color: #f5fbfd;
+    background-color: #f3fbfd;
 
-    border: 1px solid #b9dfea;
+    border: 1px solid #b9dfeb;
 
     border-radius: 8px;
 
@@ -198,7 +189,7 @@ h2 {
 .tarjeta-paquete h3 {
     margin-top: 0;
 
-    color: #267f9d;
+    color: #287c9c;
 
     text-transform: capitalize;
 }
@@ -212,7 +203,7 @@ h2 {
 .precio-total {
     font-weight: bold;
 
-    color: #267f9d;
+    color: #287c9c;
 }
 
 
@@ -227,7 +218,7 @@ h2 {
 
     border-radius: 6px;
 
-    background-color: #4baac5;
+    background-color: #3fa5c3;
 
     color: white;
 
@@ -236,7 +227,7 @@ h2 {
 
 
 .boton-carrito:hover {
-    background-color: #348fa9;
+    background-color: #287c9c;
 }
 
 
@@ -258,9 +249,9 @@ h2 {
 
     align-items: center;
 
-    background-color: #f5fbfd;
+    background-color: #f3fbfd;
 
-    border: 1px solid #b9dfea;
+    border: 1px solid #b9dfeb;
 
     border-radius: 8px;
 
@@ -271,7 +262,7 @@ h2 {
 .tarjeta-carrito h3 {
     margin-top: 0;
 
-    color: #267f9d;
+    color: #287c9c;
 
     text-transform: capitalize;
 }
@@ -284,7 +275,7 @@ h2 {
 
     border-radius: 6px;
 
-    background-color: #73b9ce;
+    background-color: #72b9ce;
 
     color: white;
 
@@ -304,11 +295,11 @@ h2 {
 
     padding: 12px;
 
-    background-color: #d9f1f7;
+    background-color: #d8f1f7;
 
     border-radius: 6px;
 
-    color: #267f9d;
+    color: #287c9c;
 
     font-weight: bold;
 
@@ -327,7 +318,7 @@ h2 {
 
     padding: 12px 18px;
 
-    background-color: #267f9d;
+    background-color: #287c9c;
 
     color: white;
 
