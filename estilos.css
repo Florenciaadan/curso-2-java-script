@@ -8,20 +8,24 @@ body {
 
     font-family: Arial, sans-serif;
 
-    background-color: #eef5f9;
+    background-color: #eaf6fb;
 
-    color: #263238;
+    color: #23404a;
 }
 
 
-header {
-    background-color: #287c8f;
+/* encabezado */
 
-    color: white;
+header {
+    background-color: #8ed1e8;
+
+    color: #ffffff;
 
     text-align: center;
 
     padding: 30px 20px;
+
+    border-bottom: 5px solid #5bb9d6;
 }
 
 
@@ -39,6 +43,8 @@ header p {
 }
 
 
+/* contenido principal */
+
 main {
     width: 90%;
 
@@ -48,8 +54,10 @@ main {
 }
 
 
+/* secciones */
+
 section {
-    background-color: white;
+    background-color: #ffffff;
 
     padding: 25px;
 
@@ -57,22 +65,25 @@ section {
 
     border-radius: 12px;
 
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #c5e7f2;
+
+    box-shadow: 0 3px 10px rgba(70, 150, 180, 0.12);
 }
 
 
 h2 {
     margin-top: 0;
 
-    color: #287c8f;
+    color: #2d8eac;
 }
 
+
+/* formulario */
 
 #formulario-paquete {
     display: grid;
 
-    grid-template-columns:
-        repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
     gap: 15px;
 }
@@ -89,6 +100,8 @@ h2 {
 
 .campo label {
     font-weight: bold;
+
+    color: #397c91;
 }
 
 
@@ -96,13 +109,27 @@ h2 {
 #buscador {
     padding: 10px;
 
-    border: 1px solid #b0bec5;
+    border: 1px solid #9ed5e5;
 
     border-radius: 6px;
 
     font-size: 15px;
+
+    background-color: #f7fcfe;
 }
 
+
+.campo input:focus,
+#buscador:focus {
+    outline: none;
+
+    border-color: #49aeca;
+
+    background-color: #ffffff;
+}
+
+
+/* boton agregar */
 
 #formulario-paquete button {
     grid-column: 1 / -1;
@@ -113,9 +140,9 @@ h2 {
 
     border-radius: 6px;
 
-    background-color: #287c8f;
+    background-color: #4aa9c7;
 
-    color: white;
+    color: #ffffff;
 
     font-size: 16px;
 
@@ -123,227 +150,4 @@ h2 {
 }
 
 
-#formulario-paquete button:hover {
-    background-color: #1d6475;
-}
-
-
-#buscador {
-    width: 100%;
-}
-
-
-.titulo-seccion {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-}
-
-
-#cantidad-paquetes,
-#cantidad-carrito {
-    background-color: #dceff3;
-
-    color: #287c8f;
-
-    padding: 6px 10px;
-
-    border-radius: 20px;
-
-    font-size: 14px;
-}
-
-
-#contenedor-paquetes {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-
-.tarjeta-paquete {
-    border: 1px solid #d0dce1;
-
-    border-radius: 10px;
-
-    padding: 18px;
-
-    background-color: #f8fbfc;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: space-between;
-}
-
-
-.tarjeta-paquete h3,
-.tarjeta-carrito h3 {
-    margin-top: 0;
-
-    text-transform: capitalize;
-
-    color: #287c8f;
-}
-
-
-.tarjeta-paquete p,
-.tarjeta-carrito p {
-    margin: 7px 0;
-}
-
-
-.precio-total {
-    font-weight: bold;
-
-    font-size: 18px;
-}
-
-
-.boton-carrito,
-.boton-eliminar {
-    border: none;
-
-    border-radius: 6px;
-
-    padding: 10px;
-
-    cursor: pointer;
-
-    margin-top: 12px;
-}
-
-
-.boton-carrito {
-    background-color: #4caf50;
-
-    color: white;
-}
-
-
-.boton-carrito:hover {
-    background-color: #3e9141;
-}
-
-
-#contenedor-carrito {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-
-.tarjeta-carrito {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    border: 1px solid #d0dce1;
-
-    border-radius: 8px;
-
-    padding: 15px;
-
-    background-color: #f8fbfc;
-}
-
-
-.boton-eliminar {
-    background-color: #d9534f;
-
-    color: white;
-}
-
-
-.boton-eliminar:hover {
-    background-color: #b83f3b;
-}
-
-
-#total-carrito {
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border-radius: 8px;
-
-    background-color: #dceff3;
-
-    color: #287c8f;
-
-    font-weight: bold;
-
-    text-align: right;
-}
-
-
-.sin-resultados {
-    padding: 20px;
-
-    text-align: center;
-
-    color: #607d8b;
-}
-
-
-#mensaje {
-    position: fixed;
-
-    right: 20px;
-
-    bottom: 20px;
-
-    background-color: #287c8f;
-
-    color: white;
-
-    padding: 15px 20px;
-
-    border-radius: 8px;
-
-    opacity: 0;
-
-    transform: translateY(20px);
-
-    transition: all 0.3s ease;
-
-    pointer-events: none;
-}
-
-
-#mensaje.mostrar {
-    opacity: 1;
-
-    transform: translateY(0);
-}
-
-
-@media (max-width: 700px) {
-
-    #formulario-paquete {
-        grid-template-columns: 1fr;
-    }
-
-
-    #contenedor-paquetes {
-        grid-template-columns: 1fr;
-    }
-
-
-    .tarjeta-carrito {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-}
+#form
