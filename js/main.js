@@ -7,14 +7,11 @@ class PaqueteViaje {
     }
 }
 
-// paquetes disponibles de la agencia
-
 const paqueteBrasil = new PaqueteViaje("brasil", 500, 1, 1);
 const paquetePeru = new PaqueteViaje("peru", 600, 1, 1);
 const paqueteColombia = new PaqueteViaje("colombia", 700, 1, 1);
 const paqueteChile = new PaqueteViaje("chile", 400, 1, 1);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 1, 1);
-
 const paquetes = [
     paqueteBrasil,
     paquetePeru,
@@ -24,7 +21,6 @@ const paquetes = [
 ];
 
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
-
 const formulario = document.getElementById("formulario-viaje");
 const inputDestino = document.getElementById("destino");
 const inputPersonas = document.getElementById("personas");
@@ -38,12 +34,10 @@ const cantidadCarrito = document.getElementById("cantidad-carrito");
 const totalCarrito = document.getElementById("total-carrito");
 const mensaje = document.getElementById("mensaje");
 
-
 function calcularTotal(paquete) {
     const { precio, personas, dias } = paquete;
     return precio * personas * dias;
 }
-
 
 function guardarCarrito() {
     carrito.length === 0
@@ -51,28 +45,23 @@ function guardarCarrito() {
         : localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-
 function mostrarMensaje(texto) {
     mensaje.textContent = texto;
     mensaje.classList.add("mostrar");
-
     setTimeout(function () {
         mensaje.classList.remove("mostrar");
     }, 2000);
 }
 
-
 function mostrarPaquetes(lista) {
     contenedorPaquetes.innerHTML = "";
     cantidadPaquetes.textContent = lista.length + " destinos";
-
     lista.length === 0
         ? contenedorPaquetes.innerHTML = "<p>no se encontraron destinos</p>"
         : lista.forEach(function (paquete) {
             const { destino, precio } = paquete;
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("tarjeta-paquete");
-
             tarjeta.innerHTML = `
                 <h3>${destino}</h3>
                 <p>precio base: $${precio}</p>
@@ -81,16 +70,13 @@ function mostrarPaquetes(lista) {
                     consultar
                 </button>
             `;
-
             contenedorPaquetes.appendChild(tarjeta);
         });
 }
 
-
 function mostrarCotizacion(paquete) {
     const { destino, personas, dias, precio } = paquete;
     const total = calcularTotal(paquete);
-
     contenedorCotizacion.innerHTML = `
         <div class="tarjeta-cotizacion">
             <h3>viaje a ${destino}</h3>
@@ -105,7 +91,6 @@ function mostrarCotizacion(paquete) {
     `;
 
     const botonAgregar = document.getElementById("boton-agregar-cotizacion");
-
     botonAgregar.addEventListener("click", function () {
         carrito.push(paquete);
         guardarCarrito();
@@ -117,7 +102,6 @@ function mostrarCotizacion(paquete) {
 function mostrarCarrito() {
     contenedorCarrito.innerHTML = "";
     cantidadCarrito.textContent = carrito.length + " viajes";
-
     if (carrito.length === 0) {
         contenedorCarrito.innerHTML = "<p>el carrito esta vacio</p>";
         totalCarrito.textContent = "";
@@ -126,7 +110,6 @@ function mostrarCarrito() {
             const { destino, personas, dias } = paquete;
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("tarjeta-carrito");
-
             tarjeta.innerHTML = `
                 <div>
                     <h3>${destino}</h3>
@@ -137,33 +120,24 @@ function mostrarCarrito() {
                     eliminar
                 </button>
             `;
-
             contenedorCarrito.appendChild(tarjeta);
         });
-
         let total = 0;
-
         carrito.forEach(function (paquete) {
             total += calcularTotal(paquete);
         });
-
         totalCarrito.textContent = "total del carrito: $" + total;
     }
 }
 
-
-
 formulario.addEventListener("submit", function (evento) {
     evento.preventDefault();
-
     const destino = inputDestino.value;
     const personas = parseInt(inputPersonas.value);
     const dias = parseInt(inputDias.value);
-
     const paqueteBase = paquetes.find(function (paquete) {
         return paquete.destino === destino;
     });
-
     if (paqueteBase) {
         const nuevaCotizacion = new PaqueteViaje(
             paqueteBase.destino,
@@ -171,7 +145,6 @@ formulario.addEventListener("submit", function (evento) {
             dias,
             personas
         );
-
         mostrarCotizacion(nuevaCotizacion);
         mostrarMensaje("cotizacion realizada");
     }
@@ -179,51 +152,41 @@ formulario.addEventListener("submit", function (evento) {
 
 buscador.addEventListener("input", function () {
     const textoBuscado = buscador.value.trim().toLowerCase();
-
     const paquetesFiltrados = paquetes.filter(function (paquete) {
         return paquete.destino.includes(textoBuscado);
     });
-
     mostrarPaquetes(paquetesFiltrados);
 });
-
 
 contenedorPaquetes.addEventListener("click", function (evento) {
     if (evento.target.classList.contains("boton-consultar")) {
         const destino = evento.target.dataset.destino;
         inputDestino.value = destino;
-
         const paquete = paquetes.find(function (paquete) {
             return paquete.destino === destino;
         });
-
         if (paquete) {
             const personas = parseInt(inputPersonas.value);
             const dias = parseInt(inputDias.value);
-
             const nuevaCotizacion = new PaqueteViaje(
                 paquete.destino,
                 paquete.precio,
                 dias,
                 personas
             );
-
             mostrarCotizacion(nuevaCotizacion);
             mostrarMensaje("cotizacion realizada");
         }
     }
 });
 
-
 contenedorCarrito.addEventListener("click", function (evento) {
     if (evento.target.classList.contains("boton-eliminar")) {
         const indice = parseInt(evento.target.dataset.indice);
         const paqueteEliminado = carrito[indice];
-
         carrito.splice(indice, 1);
         guardarCarrito();
         mostrarCarrito();
-
         mostrarMensaje("se elimino " + (paqueteEliminado?.destino ?? "el viaje") + " del carrito");
     }
 });
