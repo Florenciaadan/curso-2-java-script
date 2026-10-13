@@ -17,23 +17,16 @@ body {
 
 header {
     background-color: #7ec8df;
-
     color: white;
-
     text-align: center;
-
     padding: 30px 20px;
-
     margin-bottom: 25px;
 }
 
-
 header h1 {
     margin: 0 0 10px;
-
     font-size: 32px;
 }
-
 
 header p {
     margin: 0;
@@ -42,213 +35,133 @@ header p {
 
 main {
     width: 90%;
-
     max-width: 1000px;
-
     margin: 0 auto;
 }
 
-
-
-
 section {
     background-color: white;
-
     padding: 25px;
-
     margin-bottom: 25px;
-
     border-radius: 10px;
-
     border: 1px solid #b9dfeb;
 }
 
-
 h2 {
     margin-top: 0;
-
     color: #287c9c;
 }
 
-
-
-
 #formulario-viaje {
     display: grid;
-
     grid-template-columns:
         repeat(3, 1fr);
-
     gap: 15px;
 }
 
-
 .campo {
     display: flex;
-
     flex-direction: column;
-
     gap: 6px;
 }
 
-
 .campo label {
     font-weight: bold;
-
     color: #356c7d;
 }
-
 
 .campo input,
 .campo select {
     padding: 10px;
-
     border: 1px solid #9ed3e2;
-
     border-radius: 6px;
-
     font-size: 15px;
-
     background-color: #f5fcfe;
 }
 
-
 #formulario-viaje button {
     grid-column: 1 / -1;
-
     padding: 12px;
-
     border: none;
-
     border-radius: 6px;
-
     background-color: #3fa5c3;
-
     color: white;
-
     font-size: 16px;
-
     cursor: pointer;
 }
-
 
 #formulario-viaje button:hover {
     background-color: #287c9c;
 }
 
-
-
-
 #buscador {
     width: 100%;
-
     padding: 10px;
-
     border: 1px solid #9ed3e2;
-
     border-radius: 6px;
-
     font-size: 15px;
-
     background-color: #f5fcfe;
 }
 
-
-
-
 #contenedor-paquetes {
     display: grid;
-
     grid-template-columns:
         repeat(3, 1fr);
-
     gap: 18px;
 }
 
-
 .tarjeta-paquete {
     background-color: #f3fbfd;
-
     border: 1px solid #b9dfea;
-
     border-radius: 8px;
-
     padding: 18px;
 }
 
-
 .tarjeta-paquete h3 {
     margin-top: 0;
-
     color: #287c9c;
-
     text-transform: capitalize;
 }
-
 
 .tarjeta-paquete p {
     margin: 8px 0;
 }
 
-
 .boton-consultar,
 #boton-agregar-cotizacion {
     width: 100%;
-
     padding: 10px;
-
     margin-top: 10px;
-
     border: none;
-
     border-radius: 6px;
-
     background-color: #3fa5c3;
-
     color: white;
-
     cursor: pointer;
 }
-
 
 .boton-consultar:hover,
 #boton-agregar-cotizacion:hover {
     background-color: #287c9c;
 }
 
-
-
-
 .tarjeta-cotizacion {
     background-color: #f3fbfd;
-
     border: 1px solid #b9dfea;
-
     border-radius: 8px;
-
     padding: 20px;
 }
 
-
 .tarjeta-cotizacion h3 {
     margin-top: 0;
-
     color: #287c9c;
-
     text-transform: capitalize;
 }
 
-
 .precio-total {
     font-weight: bold;
-
     color: #287c9c;
-
     font-size: 18px;
 }
-
-
-/* carrito */
 
 #contenedor-carrito {
     display: flex;
@@ -258,118 +171,71 @@ h2 {
     gap: 10px;
 }
 
-
 .tarjeta-carrito {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     background-color: #f3fbfd;
-
     border: 1px solid #b9dfea;
-
     border-radius: 8px;
-
     padding: 15px;
 }
 
-
 .tarjeta-carrito h3 {
     margin-top: 0;
-
     color: #287c9c;
-
     text-transform: capitalize;
 }
 
-
 .boton-eliminar {
     padding: 9px 12px;
-
     border: none;
-
     border-radius: 6px;
-
     background-color: #72b9ce;
-
     color: white;
-
     cursor: pointer;
 }
-
 
 .boton-eliminar:hover {
     background-color: #559fb7;
 }
 
-
-
-
 #total-carrito {
     margin-top: 15px;
-
     padding: 12px;
-
     background-color: #d8f1f7;
-
     border-radius: 6px;
-
     color: #287c9c;
-
     font-weight: bold;
-
     text-align: right;
 }
 
-
-
-
 #mensaje {
     position: fixed;
-
     right: 20px;
-
     bottom: 20px;
-
     padding: 12px 18px;
-
     background-color: #287c9c;
-
     color: white;
-
     border-radius: 6px;
-
     opacity: 0;
 }
-
 
 #mensaje.mostrar {
     opacity: 1;
 }
-
-
-
 
 @media (max-width: 700px) {
 
     #formulario-viaje {
         grid-template-columns: 1fr;
     }
-
-
     #contenedor-paquetes {
         grid-template-columns: 1fr;
     }
-
-
     .tarjeta-carrito {
         flex-direction: column;
-
         align-items: flex-start;
-
         gap: 10px;
     }
-
 }
