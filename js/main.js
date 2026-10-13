@@ -1,5 +1,3 @@
-// clase para crear los paquetes de viaje
-
 class PaqueteViaje {
     constructor(destino, precio, dias, personas) {
         this.destino = destino;
@@ -17,8 +15,6 @@ const paqueteColombia = new PaqueteViaje("colombia", 700, 1, 1);
 const paqueteChile = new PaqueteViaje("chile", 400, 1, 1);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 1, 1);
 
-// array de objetos con los paquetes disponibles
-
 const paquetes = [
     paqueteBrasil,
     paquetePeru,
@@ -27,11 +23,7 @@ const paquetes = [
     paqueteMexico
 ];
 
-// recupero el carrito guardado en localStorage
-
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
-
-// selecciono elementos del DOM
 
 const formulario = document.getElementById("formulario-viaje");
 const inputDestino = document.getElementById("destino");
@@ -46,14 +38,12 @@ const cantidadCarrito = document.getElementById("cantidad-carrito");
 const totalCarrito = document.getElementById("total-carrito");
 const mensaje = document.getElementById("mensaje");
 
-// funcion para calcular el precio del viaje
 
 function calcularTotal(paquete) {
     const { precio, personas, dias } = paquete;
     return precio * personas * dias;
 }
 
-// funcion para guardar el carrito en localStorage
 
 function guardarCarrito() {
     carrito.length === 0
@@ -61,7 +51,6 @@ function guardarCarrito() {
         : localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// funcion para mostrar mensajes
 
 function mostrarMensaje(texto) {
     mensaje.textContent = texto;
@@ -72,7 +61,6 @@ function mostrarMensaje(texto) {
     }, 2000);
 }
 
-// funcion para mostrar los destinos
 
 function mostrarPaquetes(lista) {
     contenedorPaquetes.innerHTML = "";
@@ -98,7 +86,6 @@ function mostrarPaquetes(lista) {
         });
 }
 
-// funcion para mostrar la cotizacion
 
 function mostrarCotizacion(paquete) {
     const { destino, personas, dias, precio } = paquete;
@@ -126,8 +113,6 @@ function mostrarCotizacion(paquete) {
         mostrarMensaje("el viaje fue agregado al carrito");
     });
 }
-
-// funcion para mostrar el carrito
 
 function mostrarCarrito() {
     contenedorCarrito.innerHTML = "";
@@ -166,7 +151,7 @@ function mostrarCarrito() {
     }
 }
 
-// evento para consultar un viaje
+
 
 formulario.addEventListener("submit", function (evento) {
     evento.preventDefault();
@@ -192,8 +177,6 @@ formulario.addEventListener("submit", function (evento) {
     }
 });
 
-// evento de teclado para buscar destinos
-
 buscador.addEventListener("input", function () {
     const textoBuscado = buscador.value.trim().toLowerCase();
 
@@ -204,7 +187,6 @@ buscador.addEventListener("input", function () {
     mostrarPaquetes(paquetesFiltrados);
 });
 
-// evento para consultar desde las tarjetas
 
 contenedorPaquetes.addEventListener("click", function (evento) {
     if (evento.target.classList.contains("boton-consultar")) {
@@ -232,7 +214,6 @@ contenedorPaquetes.addEventListener("click", function (evento) {
     }
 });
 
-// evento para eliminar viajes del carrito
 
 contenedorCarrito.addEventListener("click", function (evento) {
     if (evento.target.classList.contains("boton-eliminar")) {
@@ -246,8 +227,6 @@ contenedorCarrito.addEventListener("click", function (evento) {
         mostrarMensaje("se elimino " + (paqueteEliminado?.destino ?? "el viaje") + " del carrito");
     }
 });
-
-// muestro los destinos y recupero el carrito al cargar la pagina
 
 mostrarPaquetes(paquetes);
 mostrarCarrito();
