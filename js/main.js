@@ -1,3 +1,4 @@
+
 class PaqueteViaje {
     constructor(destino, precio, dias, personas) {
         this.destino = destino;
@@ -12,6 +13,7 @@ const paquetePeru = new PaqueteViaje("peru", 600, 1, 1);
 const paqueteColombia = new PaqueteViaje("colombia", 700, 1, 1);
 const paqueteChile = new PaqueteViaje("chile", 400, 1, 1);
 const paqueteMexico = new PaqueteViaje("mexico", 800, 1, 1);
+
 const paquetes = [
     paqueteBrasil,
     paquetePeru,
@@ -21,6 +23,7 @@ const paquetes = [
 ];
 
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
+
 const formulario = document.getElementById("formulario-viaje");
 const inputDestino = document.getElementById("destino");
 const inputPersonas = document.getElementById("personas");
@@ -34,49 +37,103 @@ const cantidadCarrito = document.getElementById("cantidad-carrito");
 const totalCarrito = document.getElementById("total-carrito");
 const mensaje = document.getElementById("mensaje");
 
-function calcularTotal(paquete) {
-    const { precio, personas, dias } = paquete;
-    return precio * personas * dias;
-}
+const calcularTotal = (paquete) => {
+    const { precio, personas, dias, cantidad = 1 } = paquete;
+    return precio * personas * dias * cantidad;
+};
 
-function guardarCarrito() {
+const guardarCarrito = () => {
     carrito.length === 0
         ? localStorage.removeItem("carrito")
         : localStorage.setItem("carrito", JSON.stringify(carrito));
-}
+};
 
-function mostrarMensaje(texto) {
+const mostrarMensaje = (texto) => {
     mensaje.textContent = texto;
     mensaje.classList.add("mostrar");
-    setTimeout(function () {
+
+    setTimeout(() => {
         mensaje.classList.remove("mostrar");
     }, 2000);
-}
+};
 
-function mostrarPaquetes(lista) {
+const validarDatos = () => {
+    const personas = Number(inputPersonas.value);
+    const dias = Number(inputDias.value);
+
+    if (
+        inputPersonas.value.trim() === "" ||
+        inputDias.value.trim() === "" ||
+        !Number.isInteger(personas) ||
+        !Number.isInteger(dias) ||
+        personas < 1 ||
+        dias < 1
+    ) {
+        mostrarMensaje("ingresa una cantidad valida de personas y dias");
+        return false;
+    }
+
+    return true;
+};
+
+const consultarPaquete = (destino) => {
+    if (!validarDatos()) return;
+
+    const paqueteBase = paquetes.find(
+        (paquete) => paquete.destino === destino
+    );
+
+    if (!paqueteBase) {
+        mostrarMensaje("selecciona un destino valido");
+        return;
+    }
+
+    const nuevaCotizacion = new PaqueteViaje(
+        paqueteBase.destino,
+        paqueteBase.precio,
+        Number(inputDias.value),
+        Number(inputPersonas.value)
+    );
+
+    mostrarCotizacion(nuevaCotizacion);
+    mostrarMensaje("cotizacion realizada");
+};
+
+const mostrarPaquetes = (lista) => {
     contenedorPaquetes.innerHTML = "";
-    cantidadPaquetes.textContent = lista.length + " destinos";
-    lista.length === 0
-        ? contenedorPaquetes.innerHTML = "<p>no se encontraron destinos</p>"
-        : lista.forEach(function (paquete) {
-            const { destino, precio } = paquete;
-            const tarjeta = document.createElement("div");
-            tarjeta.classList.add("tarjeta-paquete");
-            tarjeta.innerHTML = `
-                <h3>${destino}</h3>
-                <p>precio base: $${precio}</p>
-                <p>precio por persona y dia</p>
-                <button class="boton-consultar" data-destino="${destino}">
-                    consultar
-                </button>
-            `;
-            contenedorPaquetes.appendChild(tarjeta);
-        });
-}
+    cantidadPaquetes.textContent = `${lista.length} destinos`;
 
-function mostrarCotizacion(paquete) {
+    if (lista.length === 0) {
+        contenedorPaquetes.innerHTML = `<p>no se encontraron destinos</p>`;
+        return;
+    }
+
+    lista.forEach((paquete) => {
+        const { destino, precio } = paquete;
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("tarjeta-paquete");
+
+        tarjeta.innerHTML = `
+            <h3>${destino}</h3>
+            <p>precio base: $${precio}</p>
+            <p>precio por persona y dia</p>
+            <button id="consultar-${destino}">consultar</button>
+        `;
+
+        contenedorPaquetes.appendChild(tarjeta);
+
+        document.getElementById(`consultar-${destino}`)
+            .addEventListener("click", () => {
+                inputDestino.value = destino;
+                consultarPaquete(destino);
+            });
+    });
+};
+
+const mostrarCotizacion = (paquete) => {
     const { destino, personas, dias, precio } = paquete;
     const total = calcularTotal(paquete);
+
     contenedorCotizacion.innerHTML = `
         <div class="tarjeta-cotizacion">
             <h3>viaje a ${destino}</h3>
@@ -84,111 +141,96 @@ function mostrarCotizacion(paquete) {
             <p>dias: ${dias}</p>
             <p>precio por persona y dia: $${precio}</p>
             <p class="precio-total">total del viaje: $${total}</p>
-            <button id="boton-agregar-cotizacion">
-                agregar al carrito
-            </button>
+            <button id="boton-agregar-cotizacion">agregar al carrito</button>
         </div>
     `;
 
-    const botonAgregar = document.getElementById("boton-agregar-cotizacion");
-    botonAgregar.addEventListener("click", function () {
-        carrito.push(paquete);
-        guardarCarrito();
-        mostrarCarrito();
-        mostrarMensaje("el viaje fue agregado al carrito");
-    });
-}
-
-function mostrarCarrito() {
-    contenedorCarrito.innerHTML = "";
-    cantidadCarrito.textContent = carrito.length + " viajes";
-    if (carrito.length === 0) {
-        contenedorCarrito.innerHTML = "<p>el carrito esta vacio</p>";
-        totalCarrito.textContent = "";
-    } else {
-        carrito.forEach(function (paquete, indice) {
-            const { destino, personas, dias } = paquete;
-            const tarjeta = document.createElement("div");
-            tarjeta.classList.add("tarjeta-carrito");
-            tarjeta.innerHTML = `
-                <div>
-                    <h3>${destino}</h3>
-                    <p>${personas} personas - ${dias} dias</p>
-                    <p>total: $${calcularTotal(paquete)}</p>
-                </div>
-                <button class="boton-eliminar" data-indice="${indice}">
-                    eliminar
-                </button>
-            `;
-            contenedorCarrito.appendChild(tarjeta);
-        });
-        let total = 0;
-        carrito.forEach(function (paquete) {
-            total += calcularTotal(paquete);
-        });
-        totalCarrito.textContent = "total del carrito: $" + total;
-    }
-}
-
-formulario.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-    const destino = inputDestino.value;
-    const personas = parseInt(inputPersonas.value);
-    const dias = parseInt(inputDias.value);
-    const paqueteBase = paquetes.find(function (paquete) {
-        return paquete.destino === destino;
-    });
-    if (paqueteBase) {
-        const nuevaCotizacion = new PaqueteViaje(
-            paqueteBase.destino,
-            paqueteBase.precio,
-            dias,
-            personas
-        );
-        mostrarCotizacion(nuevaCotizacion);
-        mostrarMensaje("cotizacion realizada");
-    }
-});
-
-buscador.addEventListener("input", function () {
-    const textoBuscado = buscador.value.trim().toLowerCase();
-    const paquetesFiltrados = paquetes.filter(function (paquete) {
-        return paquete.destino.includes(textoBuscado);
-    });
-    mostrarPaquetes(paquetesFiltrados);
-});
-
-contenedorPaquetes.addEventListener("click", function (evento) {
-    if (evento.target.classList.contains("boton-consultar")) {
-        const destino = evento.target.dataset.destino;
-        inputDestino.value = destino;
-        const paquete = paquetes.find(function (paquete) {
-            return paquete.destino === destino;
-        });
-        if (paquete) {
-            const personas = parseInt(inputPersonas.value);
-            const dias = parseInt(inputDias.value);
-            const nuevaCotizacion = new PaqueteViaje(
-                paquete.destino,
-                paquete.precio,
-                dias,
-                personas
+    document.getElementById("boton-agregar-cotizacion")
+        .addEventListener("click", () => {
+            const paqueteExistente = carrito.find(
+                (item) =>
+                    item.destino === paquete.destino &&
+                    item.personas === paquete.personas &&
+                    item.dias === paquete.dias
             );
-            mostrarCotizacion(nuevaCotizacion);
-            mostrarMensaje("cotizacion realizada");
-        }
+
+            if (paqueteExistente) {
+                paqueteExistente.cantidad =
+                    (paqueteExistente.cantidad ?? 1) + 1;
+            } else {
+                carrito.push({ ...paquete, cantidad: 1 });
+            }
+
+            guardarCarrito();
+            mostrarCarrito();
+            mostrarMensaje("el viaje fue agregado al carrito");
+        });
+};
+
+const mostrarCarrito = () => {
+    contenedorCarrito.innerHTML = "";
+    cantidadCarrito.textContent = `${carrito.length} viajes`;
+
+    if (carrito.length === 0) {
+        contenedorCarrito.innerHTML = `<p>el carrito esta vacio</p>`;
+        totalCarrito.textContent = "";
+        return;
     }
+
+    carrito.forEach((paquete, indice) => {
+        const { destino, personas, dias, cantidad = 1 } = paquete;
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("tarjeta-carrito");
+
+        tarjeta.innerHTML = `
+            <div>
+                <h3>${destino}</h3>
+                <p>${personas} personas - ${dias} dias</p>
+                <p>cantidad: ${cantidad}</p>
+                <p>subtotal: $${calcularTotal(paquete)}</p>
+                <button id="eliminar-${indice}">eliminar</button>
+            </div>
+        `;
+
+        contenedorCarrito.appendChild(tarjeta);
+
+        document.getElementById(`eliminar-${indice}`)
+            .addEventListener("click", () => {
+                const paqueteEliminado = carrito[indice];
+
+                if (paqueteEliminado.cantidad > 1) {
+                    paqueteEliminado.cantidad--;
+                } else {
+                    carrito.splice(indice, 1);
+                }
+
+                guardarCarrito();
+                mostrarCarrito();
+                mostrarMensaje(`se actualizo el viaje a ${paqueteEliminado.destino}`);
+            });
+    });
+
+    const total = carrito.reduce(
+        (acumulado, paquete) => acumulado + calcularTotal(paquete),
+        0
+    );
+
+    totalCarrito.textContent = `total del carrito: $${total}`;
+};
+
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    consultarPaquete(inputDestino.value);
 });
 
-contenedorCarrito.addEventListener("click", function (evento) {
-    if (evento.target.classList.contains("boton-eliminar")) {
-        const indice = parseInt(evento.target.dataset.indice);
-        const paqueteEliminado = carrito[indice];
-        carrito.splice(indice, 1);
-        guardarCarrito();
-        mostrarCarrito();
-        mostrarMensaje("se elimino " + (paqueteEliminado?.destino ?? "el viaje") + " del carrito");
-    }
+buscador.addEventListener("input", () => {
+    const textoBuscado = buscador.value.trim().toLowerCase();
+
+    const paquetesFiltrados = paquetes.filter(
+        (paquete) => paquete.destino.includes(textoBuscado)
+    );
+
+    mostrarPaquetes(paquetesFiltrados);
 });
 
 mostrarPaquetes(paquetes);
