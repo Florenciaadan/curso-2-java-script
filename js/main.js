@@ -22,20 +22,22 @@ const paquetes = [
     paqueteMexico
 ];
 
+
+
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 
 const formulario = document.getElementById("formulario-viaje");
 const inputDestino = document.getElementById("destino");
 const inputPersonas = document.getElementById("personas");
 const inputDias = document.getElementById("dias");
-const buscador = document.getElementById("buscador");
-const contenedorPaquetes = document.getElementById("contenedor-paquetes");
+const buscador = document.getElementById("buscador");   
+    const contenedorPaquetes = document.getElementById("contenedor-paquetes");
 const contenedorCotizacion = document.getElementById("contenedor-cotizacion");
 const contenedorCarrito = document.getElementById("contenedor-carrito");
-const cantidadPaquetes = document.getElementById("cantidad-paquetes");
-const cantidadCarrito = document.getElementById("cantidad-carrito");
-const totalCarrito = document.getElementById("total-carrito");
-const mensaje = document.getElementById("mensaje");
+    const cantidadPaquetes = document.getElementById("cantidad-paquetes");
+    const cantidadCarrito = document.getElementById("cantidad-carrito");
+    const totalCarrito = document.getElementById("total-carrito");
+    const mensaje = document.getElementById("mensaje");
 
 const calcularTotal = (paquete) => {
     const { precio, personas, dias, cantidad = 1 } = paquete;
