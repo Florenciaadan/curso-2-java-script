@@ -167,10 +167,26 @@ const mostrarCotizacion = (paquete) => {
 
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
+
+    const botonVaciar = document.createElement("button");
+    botonVaciar.id = "boton-vaciar-carrito";
+    botonVaciar.textContent = "vaciar carrito";
+    botonVaciar.disabled = carrito.length === 0;
+
+    contenedorCarrito.appendChild(botonVaciar);
+
+    botonVaciar.addEventListener("click", () => {
+        carrito.length = 0;
+        guardarCarrito();
+        mostrarCarrito();
+        mostrarMensaje("se vacio el carrito");
+    });
+
     cantidadCarrito.textContent = `${carrito.length} viajes`;
 
     if (carrito.length === 0) {
         contenedorCarrito.innerHTML = `<p>el carrito esta vacio</p>`;
+        contenedorCarrito.prepend(botonVaciar);
         totalCarrito.textContent = "";
     } else {
         carrito.forEach((paquete, indice) => {
@@ -178,33 +194,46 @@ const mostrarCarrito = () => {
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("tarjeta-carrito");
 
+            const subtotal = calcularTotal(paquete);
+
             tarjeta.innerHTML = `
                 <div>
                     <h3>${destino}</h3>
                     <p>${personas} personas - ${dias} dias</p>
                     <p>cantidad: ${cantidad}</p>
-                    <p>subtotal: $${calcularTotal(paquete)}</p>
+                    <p>subtotal: $${subtotal}</p>
+                    <button id="restar-${indice}">-</button>
+                    <button id="sumar-${indice}">+</button>
                     <button id="eliminar-${indice}">eliminar</button>
                 </div>
             `;
 
             contenedorCarrito.appendChild(tarjeta);
 
-            document.getElementById(`eliminar-${indice}`)
+            document.getElementById(`sumar-${indice}`)
                 .addEventListener("click", () => {
-                    const paqueteEliminado = carrito[indice];
-
-                    if (paqueteEliminado.cantidad > 1) {
-                        paqueteEliminado.cantidad--;
-                    } else {
-                        carrito.splice(indice, 1);
-                    }
-
+                    paquete.cantidad = cantidad + 1;
                     guardarCarrito();
                     mostrarCarrito();
-                    mostrarMensaje(
-                        `se actualizo el viaje a ${paqueteEliminado.destino}`
-                    );
+                });
+
+            document.getElementById(`restar-${indice}`)
+                .addEventListener("click", () => {
+                    if (cantidad > 1) {
+                        paquete.cantidad = cantidad - 1;
+                        guardarCarrito();
+                        mostrarCarrito();
+                    } else {
+                        mostrarMensaje("la cantidad minima es 1");
+                    }
+                });
+
+            document.getElementById(`eliminar-${indice}`)
+                .addEventListener("click", () => {
+                    carrito.splice(indice, 1);
+                    guardarCarrito();
+                    mostrarCarrito();
+                    mostrarMensaje("se elimino el producto del carrito");
                 });
         });
 
