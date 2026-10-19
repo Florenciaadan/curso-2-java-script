@@ -263,3 +263,17 @@ buscador.addEventListener("input", () => {
 
 mostrarPaquetes(paquetes);
 mostrarCarrito();
+
+
+mostrarPaquetes(paquetes);
+mostrarCarrito();
+
+setTimeout(() => {
+    const recordatorio = document.createElement("div");
+
+    recordatorio.id = "recordatorio-carrito";
+    recordatorio.textContent = "no te olvides de tu carrito!";
+
+    document.body.appendChild(recordatorio);
+}, 20000);
+
