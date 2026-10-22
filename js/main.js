@@ -43,7 +43,7 @@ const cargarPaquetes = async () => {
     estadoCarga.classList.add("cargando");
 
     try {
-        const respuesta = await fetch("./db/data.json");
+const respuesta = await fetch("./db/archivo-inexistente.json");
 
         if (!respuesta.ok) {
             throw new Error("no se pudieron cargar los destinos");
