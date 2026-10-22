@@ -61,8 +61,7 @@ const cargarPaquetes = async () => {
         mostrarPaquetes(paquetes);
         actualizarDestinos();
 
-        estadoCarga.textContent = "";
-        mostrarMensaje("destinos cargados con exito");
+    estadoCarga.textContent = "";
     } catch (error) {
         estadoCarga.textContent = "no se pudieron cargar los destinos. intenta nuevamente.";
         contenedorPaquetes.innerHTML = "";
