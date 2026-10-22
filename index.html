@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>gestor de viajes</title>
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <script src="./js/main.js" defer></script>
+    <!-- libreria Toastify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <script src="./js/main.js" defer></script>
 </head>
+
 
 
 <body>
@@ -96,12 +99,12 @@
             >
         </section>
 
-        <section>
-
-            <h2>destinos disponibles</h2>
-            <p id="cantidad-paquetes"></p>
-            <div id="contenedor-paquetes"></div>
-        </section>
+<section>
+    <h2>destinos disponibles</h2>
+    <p id="estado-carga">cargando destinos...</p>
+    <p id="cantidad-paquetes"></p>
+    <div id="contenedor-paquetes"></div>
+</section>
 
         <section>
             <h2>mi cotizacion</h2>

@@ -1,0 +1,28 @@
+
+[
+    {
+        "id": 1,
+        "destino": "brasil",
+        "precio": 500
+    },
+    {
+        "id": 2,
+        "destino": "peru",
+        "precio": 600
+    },
+    {
+        "id": 3,
+        "destino": "colombia",
+        "precio": 700
+    },
+    {
+        "id": 4,
+        "destino": "chile",
+        "precio": 400
+    },
+    {
+        "id": 5,
+        "destino": "mexico",
+        "precio": 800
+    }
+]

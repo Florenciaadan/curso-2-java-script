@@ -266,3 +266,17 @@ h2 {
         transform: translateY(0);
     }
 }
+
+
+#estado-carga {
+    color: #287c9c;
+    font-weight: bold;
+}
+
+#estado-carga:empty {
+    display: none;
+}
+
+#estado-carga.cargando {
+    padding: 10px 0;
+}

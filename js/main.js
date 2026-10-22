@@ -8,20 +8,7 @@ class PaqueteViaje {
     }
 }
 
-const paqueteBrasil = new PaqueteViaje("brasil", 500, 1, 1);
-const paquetePeru = new PaqueteViaje("peru", 600, 1, 1);
-const paqueteColombia = new PaqueteViaje("colombia", 700, 1, 1);
-const paqueteChile = new PaqueteViaje("chile", 400, 1, 1);
-const paqueteMexico = new PaqueteViaje("mexico", 800, 1, 1);
-
-const paquetes = [
-    paqueteBrasil,
-    paquetePeru,
-    paqueteColombia,
-    paqueteChile,
-    paqueteMexico
-];
-
+const paquetes = [];
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 
 const formulario = document.getElementById("formulario-viaje");
@@ -35,7 +22,77 @@ const contenedorCarrito = document.getElementById("contenedor-carrito");
 const cantidadPaquetes = document.getElementById("cantidad-paquetes");
 const cantidadCarrito = document.getElementById("cantidad-carrito");
 const totalCarrito = document.getElementById("total-carrito");
-const mensaje = document.getElementById("mensaje");
+const estadoCarga = document.getElementById("estado-carga");
+
+const mostrarMensaje = (texto, tipo = "exito") => {
+    const color = tipo === "error" ? "#c0392b" : "#287c9c";
+
+    Toastify({
+        text: texto,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        style: {
+            background: color
+        }
+    }).showToast();
+};
+
+const cargarPaquetes = async () => {
+    estadoCarga.textContent = "cargando destinos...";
+    estadoCarga.classList.add("cargando");
+
+    try {
+        const respuesta = await fetch("./db/data.json");
+
+        if (!respuesta.ok) {
+            throw new Error("no se pudieron cargar los destinos");
+        }
+
+        const datos = await respuesta.json();
+
+        if (!Array.isArray(datos)) {
+            throw new Error("el archivo JSON no tiene el formato esperado");
+        }
+
+        paquetes.length = 0;
+        paquetes.push(...datos);
+
+        mostrarPaquetes(paquetes);
+        actualizarDestinos();
+
+        estadoCarga.textContent = "";
+        mostrarMensaje("destinos cargados con exito");
+    } catch (error) {
+        estadoCarga.textContent = "no se pudieron cargar los destinos. intenta nuevamente.";
+        contenedorPaquetes.innerHTML = "";
+        cantidadPaquetes.textContent = "0 destinos";
+        mostrarMensaje("error al cargar los destinos", "error");
+    } finally {
+        estadoCarga.classList.remove("cargando");
+    }
+};
+
+const actualizarDestinos = () => {
+    const destinoSeleccionado = inputDestino.value;
+
+    inputDestino.innerHTML = "";
+
+    paquetes.forEach((paquete) => {
+        const opcion = document.createElement("option");
+        opcion.value = paquete.destino;
+        opcion.textContent = paquete.destino;
+        inputDestino.appendChild(opcion);
+    });
+
+    const destinoDisponible = paquetes.find(
+        (paquete) => paquete.destino === destinoSeleccionado
+    );
+
+    if (destinoDisponible) {
+        inputDestino.value = destinoSeleccionado;
+    }
+};
 
 const calcularTotal = (paquete) => {
     const { precio, personas, dias, cantidad = 1 } = paquete;
@@ -46,15 +103,6 @@ const guardarCarrito = () => {
     carrito.length === 0
         ? localStorage.removeItem("carrito")
         : localStorage.setItem("carrito", JSON.stringify(carrito));
-};
-
-const mostrarMensaje = (texto) => {
-    mensaje.textContent = texto;
-    mensaje.classList.add("mostrar");
-
-    setTimeout(() => {
-        mensaje.classList.remove("mostrar");
-    }, 2000);
 };
 
 const validarDatos = () => {
@@ -69,11 +117,11 @@ const validarDatos = () => {
         personas < 1 ||
         dias < 1
     ) {
-        mostrarMensaje("ingresa una cantidad valida de personas y dias");
+        mostrarMensaje("ingresa una cantidad valida de personas y dias", "error");
         return false;
-    } else {
-        return true;
     }
+
+    return true;
 };
 
 const consultarPaquete = (destino) => {
@@ -93,7 +141,7 @@ const consultarPaquete = (destino) => {
             mostrarCotizacion(nuevaCotizacion);
             mostrarMensaje("cotizacion realizada");
         } else {
-            mostrarMensaje("selecciona un destino valido");
+            mostrarMensaje("selecciona un destino valido", "error");
         }
     }
 };
@@ -224,7 +272,7 @@ const mostrarCarrito = () => {
                         guardarCarrito();
                         mostrarCarrito();
                     } else {
-                        mostrarMensaje("la cantidad minima es 1");
+                        mostrarMensaje("la cantidad minima es 1", "error");
                     }
                 });
 
@@ -261,12 +309,8 @@ buscador.addEventListener("input", () => {
     mostrarPaquetes(paquetesFiltrados);
 });
 
-mostrarPaquetes(paquetes);
 mostrarCarrito();
-
-
-mostrarPaquetes(paquetes);
-mostrarCarrito();
+cargarPaquetes();
 
 setTimeout(() => {
     const recordatorio = document.createElement("div");
@@ -276,4 +320,3 @@ setTimeout(() => {
 
     document.body.appendChild(recordatorio);
 }, 20000);
-
