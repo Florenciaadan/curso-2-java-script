@@ -51,10 +51,6 @@ const cargarPaquetes = async () => {
 
         const datos = await respuesta.json();
 
-        if (!Array.isArray(datos)) {
-            throw new Error("el archivo JSON no tiene el formato esperado");
-        }
-
         paquetes.length = 0;
         paquetes.push(...datos);
 
@@ -95,7 +91,8 @@ const actualizarDestinos = () => {
 
 const calcularTotal = (paquete) => {
     const { precio, personas, dias, cantidad = 1 } = paquete;
-    return precio * personas * dias * cantidad;
+    const valores = [precio, personas, dias, cantidad];
+    return valores.reduce((total, valor) => total * valor, 1);
 };
 
 const guardarCarrito = () => {
@@ -111,10 +108,8 @@ const validarDatos = () => {
     if (
         inputPersonas.value.trim() === "" ||
         inputDias.value.trim() === "" ||
-        !Number.isInteger(personas) ||
-        !Number.isInteger(dias) ||
-        personas < 1 ||
-        dias < 1
+        personas <= 0 ||
+        dias <= 0
     ) {
         mostrarMensaje("ingresa una cantidad valida de personas y dias", "error");
         return false;
