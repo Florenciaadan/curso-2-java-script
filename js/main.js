@@ -1,14 +1,14 @@
 
 const formulario = document.getElementById("formulario-viaje");
-const inputDestino = document.getElementById("destino");
-const buscador = document.getElementById("buscador");
 
 formulario.addEventListener("submit", (evento) => {
     evento.preventDefault();
-    window.gestorViajes.consultarPaquete(inputDestino.value);
+    window.gestorViajes.consultarPaquete(
+        document.getElementById("destino").value
+    );
 });
 
-buscador.addEventListener("input", () => {
+document.getElementById("buscador").addEventListener("input", () => {
     window.gestorViajes.filtrarPaquetes();
 });
 
