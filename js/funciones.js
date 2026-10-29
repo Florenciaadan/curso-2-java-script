@@ -220,6 +220,7 @@ const mostrarCotizacion = (paquete) => {
         });
 };
 
+
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
 
@@ -308,7 +309,7 @@ const mostrarCarrito = () => {
         );
 
         totalCarrito.textContent = `total del carrito: $${total}`;
-        
+
         const botonCheckout = document.createElement("button");
         botonCheckout.id = "boton-checkout";
         botonCheckout.textContent = "continuar con la compra";
@@ -322,16 +323,27 @@ const mostrarCarrito = () => {
                 0
             );
 
+            const cantidadViajes = carrito.length;
+
             contenedorCarrito.innerHTML = `
                 <div class="tarjeta-cotizacion">
-                    <h3>confirmar compra</h3>
-                    <p>cantidad de viajes: ${carrito.length}</p>
+                    <h3>finalizar compra</h3>
+                    <p>cantidad de viajes: ${cantidadViajes}</p>
                     <p class="precio-total">
                         total a pagar: $${totalCompra}
                     </p>
-                    <p>¿Deseas confirmar tu compra?</p>
+
+                    <label for="medio-pago">medio de pago:</label>
+                    <select id="medio-pago">
+                        <option value="">selecciona una opcion</option>
+                        <option value="efectivo">efectivo</option>
+                        <option value="tarjeta">tarjeta</option>
+                    </select>
+
+                    <p id="estado-pago"></p>
+
                     <button id="boton-confirmar-compra">
-                        confirmar compra
+                        pagar
                     </button>
                     <button id="boton-cancelar-compra">
                         volver al carrito
@@ -340,32 +352,64 @@ const mostrarCarrito = () => {
             `;
 
             document
-                .getElementById("boton-confirmar-compra")
-                .addEventListener("click", () => {
-                    carrito.length = 0;
-                    guardarCarrito();
-                    mostrarCarrito();
-                    mostrarMensaje(
-                        "¡Compra confirmada con éxito!"
-                    );
-                    contenedorCotizacion.innerHTML = `
-                        <div class="tarjeta-cotizacion">
-                            <h3>¡Gracias por tu compra!</h3>
-                            <p>Tu compra fue confirmada correctamente.</p>
-                            <p>Total abonado: $${totalCompra}</p>
-                        </div>
-                    `;
-                });
-
-            document
                 .getElementById("boton-cancelar-compra")
                 .addEventListener("click", () => {
                     mostrarCarrito();
                 });
-        });
 
+            document
+                .getElementById("boton-confirmar-compra")
+                .addEventListener("click", () => {
+                    const medioPago =
+                        document.getElementById("medio-pago").value;
+                    const estadoPago =
+                        document.getElementById("estado-pago");
+                    const botonPagar =
+                        document.getElementById("boton-confirmar-compra");
+
+                    if (medioPago === "") {
+                        mostrarMensaje(
+                            "selecciona un medio de pago",
+                            "error"
+                        );
+                        return;
+                    }
+
+                    botonPagar.disabled = true;
+                    estadoPago.textContent = "procesando el pago...";
+
+                    setTimeout(() => {
+                        const numeroOperacion =
+                            `VIA-${Date.now()}`;
+                        const fechaCompra =
+                            new Date().toLocaleString("es-AR");
+
+                        carrito.length = 0;
+                        guardarCarrito();
+                        mostrarCarrito();
+
+                        contenedorCotizacion.innerHTML = `
+                            <div class="tarjeta-cotizacion">
+                                <h3>¡gracias por tu compra!</h3>
+                                <p>comprobante de compra</p>
+                                <p>operacion: ${numeroOperacion}</p>
+                                <p>fecha: ${fechaCompra}</p>
+                                <p>cantidad de viajes: ${cantidadViajes}</p>
+                                <p>medio de pago: ${medioPago}</p>
+                                <p class="precio-total">
+                                    total abonado: $${totalCompra}
+                                </p>
+                                <p>tu pago fue procesado correctamente.</p>
+                            </div>
+                        `;
+
+                        mostrarMensaje("compra realizada con exito");
+                    }, 1500);
+                });
+        });
     }
 };
+
 
 const filtrarPaquetes = () => {
     const textoBuscado = buscador.value.trim().toLowerCase();
