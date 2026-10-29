@@ -280,3 +280,20 @@ h2 {
 #estado-carga.cargando {
     padding: 10px 0;
 }
+#boton-checkout,
+#boton-confirmar-compra,
+#boton-cancelar-compra {
+    padding: 10px 14px;
+    margin: 8px 8px 0 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #287c9c;
+    color: white;
+    cursor: pointer;
+}
+
+#boton-checkout:hover,
+#boton-confirmar-compra:hover,
+#boton-cancelar-compra:hover {
+    background-color: #1d6078;
+}
