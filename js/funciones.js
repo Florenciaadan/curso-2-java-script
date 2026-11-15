@@ -260,7 +260,6 @@ const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
         actualizarRecordatorioCarrito();
 
-    // Si el carrito queda vacío, quitar el recordatorio
     if (carrito.length === 0) {
         document.getElementById("recordatorio-carrito")?.remove();
     }
