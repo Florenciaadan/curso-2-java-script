@@ -16,10 +16,15 @@ window.gestorViajes.mostrarCarrito();
 window.gestorViajes.cargarPaquetes();
 
 setTimeout(() => {
-    const recordatorio = document.createElement("div");
+    const carritoGuardado =
+        JSON.parse(localStorage.getItem("carrito")) ?? [];
 
-    recordatorio.id = "recordatorio-carrito";
-    recordatorio.textContent = "no te olvides de tu carrito!";
+    if (carritoGuardado.length > 0) {
+        const recordatorio = document.createElement("div");
 
-    document.body.appendChild(recordatorio);
-}, 20000);
+        recordatorio.id = "recordatorio-carrito";
+        recordatorio.textContent = "¡No te olvides de tu carrito!";
+
+        document.body.appendChild(recordatorio);
+    }
+}, 10000);
