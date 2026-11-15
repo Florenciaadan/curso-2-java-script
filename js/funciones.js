@@ -477,7 +477,7 @@ if (esTransferencia) {
     Te contactaremos a tu número de contacto indicando este
     número de orden, para avanzar con el pago vía transferencia.
 </p>
-<small>Esta es una operación simulada.</small>
+
                                 `,
                                 confirmButtonText: "Entendido",
                                 confirmButtonColor: "#287c9c"
