@@ -27,4 +27,4 @@ setTimeout(() => {
 
         document.body.appendChild(recordatorio);
     }
-}, 10000);
+}, 10);
