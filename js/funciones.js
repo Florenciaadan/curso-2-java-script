@@ -231,6 +231,11 @@ const mostrarCotizacion = (paquete) => {
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
 
+    // Si el carrito queda vacío, quitar el recordatorio
+    if (carrito.length === 0) {
+        document.getElementById("recordatorio-carrito")?.remove();
+    }
+
     const botonVaciar = document.createElement("button");
     botonVaciar.id = "boton-vaciar-carrito";
     botonVaciar.textContent = "vaciar carrito";
