@@ -90,6 +90,13 @@ const actualizarDestinos = () => {
     }
 };
 
+const formatearPrecio = (importe) =>
+    new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+        maximumFractionDigits: 2
+    }).format(importe);
+
 const calcularTotal = (paquete) => {
     const { precio, personas, dias, cantidad = 1 } = paquete;
     const valores = [precio, personas, dias, cantidad];
@@ -323,8 +330,6 @@ const mostrarCarrito = () => {
                 0
             );
 
-            const cantidadViajes = carrito.length;
-
             contenedorCarrito.innerHTML = `
                 <div class="tarjeta-cotizacion">
                     <h3>finalizar compra</h3>
@@ -376,35 +381,97 @@ const mostrarCarrito = () => {
                     }
 
                     botonPagar.disabled = true;
-                    estadoPago.textContent = "procesando el pago...";
+                    estadoPago.textContent = "procesando la operación...";
 
-                    setTimeout(() => {
-                        const numeroOperacion =
-                            `VIA-${Date.now()}`;
-                        const fechaCompra =
-                            new Date().toLocaleString("es-AR");
+                    Swal.fire({
+                        title: "Procesando tu compra",
+                        text: "Estamos preparando la confirmación...",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+
+                    setTimeout(async () => {
+                        const numeroOperacion = `VIA-${Date.now()}`;
+                        const numeroOrden = `ORD-${Date.now()}`;
+                        const fechaCompra = new Date().toLocaleString("es-AR");
+                        const esPagoEnEfectivo = medioPago === "efectivo";
+                        const nombreMedioPago = medioPago === "billetera"
+                            ? "billetera virtual"
+                            : medioPago;
+                        const cantidadTotalViajes = carrito.reduce(
+                            (acumulado, paquete) => acumulado + (paquete.cantidad ?? 1),
+                            0
+                        );
 
                         carrito.length = 0;
                         guardarCarrito();
                         mostrarCarrito();
 
-                        contenedorCotizacion.innerHTML = `
-                            <div class="tarjeta-cotizacion">
-                                <h3>¡gracias por tu compra!</h3>
-                                <p>comprobante de compra</p>
-                                <p>operacion: ${numeroOperacion}</p>
-                                <p>fecha: ${fechaCompra}</p>
-                                <p>cantidad de viajes: ${cantidadViajes}</p>
-                                <p>medio de pago: ${medioPago}</p>
-                                <p class="precio-total">
-                                    total abonado: $${totalCompra}
-                                </p>
-                                <p>tu pago fue procesado correctamente.</p>
-                            </div>
-                        `;
+                        if (esPagoEnEfectivo) {
+                            contenedorCotizacion.innerHTML = `
+                                <div class="tarjeta-cotizacion">
+                                    <h3>¡Orden de compra creada!</h3>
+                                    <p>Orden: ${numeroOrden}</p>
+                                    <p>Fecha: ${fechaCompra}</p>
+                                    <p>Medio de pago: efectivo</p>
+                                    <p>Cantidad de viajes: ${cantidadTotalViajes}</p>
+                                    <p class="precio-total">Total pendiente: ${formatearPrecio(totalCompra)}</p>
+                                    <p>Alias para transferencia: <strong>VIAJES.FLOR.PAGO</strong></p>
+                                    <p>Contacto para coordinar: <strong>11 5555-0101</strong></p>
+                                    <p>Tu orden quedó registrada. El pago todavía está pendiente.</p>
+                                </div>
+                            `;
 
-                        mostrarMensaje("compra realizada con exito");
-                    }, 1500);
+                            await Swal.fire({
+                                icon: "success",
+                                title: "¡Orden de compra creada correctamente!",
+                                html: `
+                                    <p>Tu número de orden es:</p>
+                                    <strong>${numeroOrden}</strong>
+                                    <hr>
+                                    <p><b>Total pendiente:</b> ${formatearPrecio(totalCompra)}</p>
+                                    <p><b>Alias:</b> VIAJES.FLOR.PAGO</p>
+                                    <p><b>Contacto:</b> 11 5555-0101</p>
+                                    <small>Contactanos para coordinar el pago en efectivo. Esta es una operación simulada.</small>
+                                `,
+                                confirmButtonText: "Entendido",
+                                confirmButtonColor: "#287c9c"
+                            });
+                        } else {
+                            contenedorCotizacion.innerHTML = `
+                                <div class="tarjeta-cotizacion">
+                                    <h3>¡Gracias por tu compra!</h3>
+                                    <p>Comprobante de compra</p>
+                                    <p>Operación: ${numeroOperacion}</p>
+                                    <p>Fecha: ${fechaCompra}</p>
+                                    <p>Cantidad de viajes: ${cantidadTotalViajes}</p>
+                                    <p>Medio de pago: ${nombreMedioPago}</p>
+                                    <p class="precio-total">Total abonado: ${formatearPrecio(totalCompra)}</p>
+                                    <p>Tu pago fue procesado correctamente.</p>
+                                </div>
+                            `;
+
+                            await Swal.fire({
+                                icon: "success",
+                                title: "¡Pago procesado correctamente!",
+                                html: `
+                                    <p>Tu compra fue confirmada.</p>
+                                    <p><b>Número de operación:</b> ${numeroOperacion}</p>
+                                    <p><b>Fecha:</b> ${fechaCompra}</p>
+                                    <p><b>Medio de pago:</b> ${nombreMedioPago}</p>
+                                    <p><b>Total abonado:</b> ${formatearPrecio(totalCompra)}</p>
+                                    <small>Esta es una simulación; no se realizó ningún cobro real.</small>
+                                `,
+                                confirmButtonText: "¡Genial!",
+                                confirmButtonColor: "#287c9c"
+                            });
+                        }
+
+                        mostrarMensaje(esPagoEnEfectivo
+                            ? "orden de compra creada correctamente"
+                            : "pago procesado correctamente");
+                    }, 1200);
                 });
         });
     }
