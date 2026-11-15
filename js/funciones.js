@@ -507,14 +507,27 @@ if (esTransferencia) {
                                     <p><b>Total abonado:</b> ${formatearPrecio(totalCompra)}</p>
                                     <small>Que disfrutes tu viaje!</small>
                                 `,
-                                confirmButtonText: "¡Genial!",
+                                confirmButtonText: "Buen viaje!",
                                 confirmButtonColor: "#287c9c"
                             });
                         }
 
-                        mostrarMensaje(esPagoEnEfectivo
-                            ? "orden de compra creada correctamente"
-                            : "pago procesado correctamente");
+contenedorCotizacion.innerHTML = `
+    <p>todavia no realizaste una consulta</p>
+`;
+
+inputPersonas.value = 2;
+inputDias.value = 5;
+buscador.value = "";
+
+mostrarPaquetes(paquetes);
+actualizarDestinos();
+mostrarCarrito();
+
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
                     }, 1200);
                 });
         });
