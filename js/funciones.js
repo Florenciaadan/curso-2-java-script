@@ -330,6 +330,12 @@ const mostrarCarrito = () => {
                 0
             );
 
+                const cantidadViajes = carrito.reduce(
+        (acumulado, paquete) =>
+            acumulado + (paquete.cantidad ?? 1),
+        0
+    );
+
             contenedorCarrito.innerHTML = `
                 <div class="tarjeta-cotizacion">
                     <h3>finalizar compra</h3>
