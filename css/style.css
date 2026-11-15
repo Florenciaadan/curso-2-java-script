@@ -1,223 +1,347 @@
+
+/* ESTILOS GENERALES */
+
 * {
     box-sizing: border-box;
 }
 
-
 body {
     margin: 0;
-
-    font-family: Arial, sans-serif;
-
-    background-color: #eaf7fb;
-
-    color: #24404a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f7fa;
+    color: #263d4a;
+    line-height: 1.6;
 }
 
-
+/* ENCABEZADO */
 
 header {
-    background-color: #7ec8df;
+    background: linear-gradient(135deg, #125b78, #249bb0);
     color: white;
     text-align: center;
-    padding: 30px 20px;
-    margin-bottom: 25px;
+    padding: 45px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(18, 91, 120, 0.15);
 }
 
 header h1 {
     margin: 0 0 10px;
-    font-size: 32px;
+    font-size: 38px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
 }
 
 header p {
     margin: 0;
+    font-size: 17px;
+    opacity: 0.95;
 }
 
+/* CONTENIDO PRINCIPAL */
 
 main {
     width: 90%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 section {
     background-color: white;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    border: 1px solid #b9dfeb;
+    padding: 28px;
+    margin-bottom: 28px;
+    border-radius: 14px;
+    border: 1px solid #dcebf0;
+    box-shadow: 0 4px 15px rgba(30, 80, 100, 0.06);
 }
 
 h2 {
     margin-top: 0;
-    color: #287c9c;
+    margin-bottom: 20px;
+    color: #176b87;
+    font-size: 25px;
+    font-weight: 750;
 }
+
+/* FORMULARIO */
 
 #formulario-viaje {
     display: grid;
-    grid-template-columns:
-        repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
 }
 
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
 }
 
 .campo label {
-    font-weight: bold;
-    color: #356c7d;
+    font-weight: 650;
+    color: #31596a;
 }
 
 .campo input,
 .campo select {
-    padding: 10px;
-    border: 1px solid #9ed3e2;
-    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #c8dfe7;
+    border-radius: 8px;
     font-size: 15px;
-    background-color: #f5fcfe;
+    background-color: #f8fcfd;
+    color: #263d4a;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+#buscador:focus {
+    outline: none;
+    border-color: #249bb0;
+    box-shadow: 0 0 0 3px rgba(36, 155, 176, 0.12);
 }
 
 #formulario-viaje button {
     grid-column: 1 / -1;
-    padding: 12px;
+    padding: 13px;
     border: none;
-    border-radius: 6px;
-    background-color: #3fa5c3;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1687a4, #26a9b5);
     color: white;
     font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
+    transition: 0.25s;
 }
 
 #formulario-viaje button:hover {
-    background-color: #287c9c;
+    background: #126c88;
+    transform: translateY(-2px);
 }
+
+/* BUSCADOR */
 
 #buscador {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #9ed3e2;
-    border-radius: 6px;
+    padding: 13px;
+    border: 1px solid #c8dfe7;
+    border-radius: 8px;
     font-size: 15px;
-    background-color: #f5fcfe;
+    background-color: #f8fcfd;
 }
+
+/* DESTINOS */
 
 #contenedor-paquetes {
     display: grid;
-    grid-template-columns:
-        repeat(3, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .tarjeta-paquete {
-    background-color: #f3fbfd;
-    border: 1px solid #b9dfea;
-    border-radius: 8px;
-    padding: 18px;
+    background: linear-gradient(145deg, #ffffff, #f1f9fb);
+    border: 1px solid #d6e9ef;
+    border-radius: 12px;
+    padding: 21px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.tarjeta-paquete:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 9px 20px rgba(20, 100, 125, 0.12);
 }
 
 .tarjeta-paquete h3 {
     margin-top: 0;
-    color: #287c9c;
+    color: #176b87;
+    font-size: 20px;
     text-transform: capitalize;
 }
 
 .tarjeta-paquete p {
     margin: 8px 0;
+    font-size: 15px;
 }
 
 .boton-consultar,
 #boton-agregar-cotizacion {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 11px;
+    margin-top: 12px;
     border: none;
-    border-radius: 6px;
-    background-color: #3fa5c3;
+    border-radius: 8px;
+    background-color: #1687a4;
     color: white;
+    font-size: 15px;
+    font-weight: 650;
     cursor: pointer;
+    transition: 0.25s;
 }
 
 .boton-consultar:hover,
 #boton-agregar-cotizacion:hover {
-    background-color: #287c9c;
+    background-color: #125b78;
+    transform: translateY(-2px);
 }
 
+/* COTIZACIÓN */
+
 .tarjeta-cotizacion {
-    background-color: #f3fbfd;
-    border: 1px solid #b9dfea;
-    border-radius: 8px;
-    padding: 20px;
+    background-color: #f5fafc;
+    border: 1px solid #d5e8ef;
+    border-radius: 12px;
+    padding: 24px;
 }
 
 .tarjeta-cotizacion h3 {
     margin-top: 0;
-    color: #287c9c;
+    color: #176b87;
+    font-size: 22px;
     text-transform: capitalize;
 }
 
-.precio-total {
-    font-weight: bold;
-    color: #287c9c;
-    font-size: 18px;
+.tarjeta-cotizacion p {
+    margin: 10px 0;
 }
+
+.precio-total {
+    font-weight: 800;
+    color: #087e91;
+    font-size: 21px;
+}
+
+/* CARRITO */
 
 #contenedor-carrito {
     display: flex;
-
     flex-direction: column;
-
-    gap: 10px;
+    gap: 13px;
 }
 
 .tarjeta-carrito {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f3fbfd;
-    border: 1px solid #b9dfea;
-    border-radius: 8px;
-    padding: 15px;
+    background-color: #f5fafc;
+    border: 1px solid #d5e8ef;
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
+}
+
+.tarjeta-carrito:hover {
+    box-shadow: 0 5px 15px rgba(20, 100, 125, 0.08);
 }
 
 .tarjeta-carrito h3 {
     margin-top: 0;
-    color: #287c9c;
+    color: #176b87;
+    font-size: 19px;
     text-transform: capitalize;
 }
 
-.boton-eliminar {
-    padding: 9px 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #72b9ce;
-    color: white;
-    cursor: pointer;
+.tarjeta-carrito p {
+    margin: 8px 0;
 }
 
-.boton-eliminar:hover {
-    background-color: #559fb7;
+/* BOTONES DEL CARRITO */
+
+.tarjeta-carrito button,
+#boton-vaciar-carrito {
+    padding: 9px 14px;
+    margin: 4px;
+    border: none;
+    border-radius: 7px;
+    background-color: #1687a4;
+    color: white;
+    font-weight: 650;
+    cursor: pointer;
+    transition: 0.2s;
 }
+
+.tarjeta-carrito button:hover {
+    background-color: #125b78;
+}
+
+#boton-vaciar-carrito {
+    background-color: #eaf3f6;
+    color: #31596a;
+}
+
+#boton-vaciar-carrito:hover:not(:disabled) {
+    background-color: #d4e7ed;
+}
+
+#boton-vaciar-carrito:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* TOTAL DEL CARRITO */
 
 #total-carrito {
     margin-top: 15px;
-    padding: 12px;
-    background-color: #d8f1f7;
-    border-radius: 6px;
-    color: #287c9c;
-    font-weight: bold;
+    padding: 16px;
+    background-color: #e2f4f6;
+    border-radius: 9px;
+    color: #126b83;
+    font-weight: 800;
+    font-size: 19px;
     text-align: right;
 }
+
+/* BOTONES DE COMPRA */
+
+#boton-checkout,
+#boton-confirmar-compra,
+#boton-cancelar-compra {
+    padding: 13px 18px;
+    margin: 8px 8px 0 0;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #125b78, #1687a4);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#boton-checkout {
+    width: 100%;
+    margin: 10px 0 0;
+}
+
+#boton-checkout:hover,
+#boton-confirmar-compra:hover {
+    background: #0c4d67;
+    transform: translateY(-2px);
+}
+
+#boton-cancelar-compra {
+    background-color: #dcebf0;
+    color: #31596a;
+}
+
+#boton-cancelar-compra:hover {
+    background-color: #c6dfe7;
+}
+
+#boton-confirmar-compra:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* MENSAJES */
 
 #mensaje {
     position: fixed;
     right: 20px;
     bottom: 20px;
     padding: 12px 18px;
-    background-color: #287c9c;
+    background-color: #176b87;
     color: white;
-    border-radius: 6px;
+    border-radius: 9px;
     opacity: 0;
 }
 
@@ -225,33 +349,20 @@ h2 {
     opacity: 1;
 }
 
-@media (max-width: 700px) {
-
-    #formulario-viaje {
-        grid-template-columns: 1fr;
-    }
-    #contenedor-paquetes {
-        grid-template-columns: 1fr;
-    }
-    .tarjeta-carrito {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-}
-
+/* RECORDATORIO DEL CARRITO */
 
 #recordatorio-carrito {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background-color: #d9f0ff;
-    color: #044667;
-    padding: 15px 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #d8f2f8, #c4eaf3);
+    color: #125b78;
+    padding: 15px 21px;
+    border-radius: 25px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.13);
     z-index: 1000;
     font-size: 14px;
+    font-weight: 650;
     animation: aparecer-recordatorio 0.4s ease;
 }
 
@@ -267,10 +378,11 @@ h2 {
     }
 }
 
+/* ESTADO DE CARGA */
 
 #estado-carga {
-    color: #287c9c;
-    font-weight: bold;
+    color: #176b87;
+    font-weight: 650;
 }
 
 #estado-carga:empty {
@@ -280,20 +392,47 @@ h2 {
 #estado-carga.cargando {
     padding: 10px 0;
 }
-#boton-checkout,
-#boton-confirmar-compra,
-#boton-cancelar-compra {
-    padding: 10px 14px;
-    margin: 8px 8px 0 0;
-    border: none;
-    border-radius: 6px;
-    background-color: #16048a;
-    color: rgb(252, 252, 253);
-    cursor: pointer;
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    #contenedor-paquetes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #formulario-viaje {
+        grid-template-columns: 1fr;
+    }
 }
 
-#boton-checkout:hover,
-#boton-confirmar-compra:hover,
-#boton-cancelar-compra:hover {
-    background-color: #16048a;
+@media (max-width: 550px) {
+    main {
+        width: 94%;
+    }
+
+    section {
+        padding: 19px;
+    }
+
+    header {
+        padding: 32px 15px;
+    }
+
+    header h1 {
+        font-size: 29px;
+    }
+
+    #contenedor-paquetes {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-carrito {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #total-carrito {
+        font-size: 17px;
+    }
 }
