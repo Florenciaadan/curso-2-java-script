@@ -379,11 +379,11 @@ const mostrarCarrito = () => {
                     </p>
 
                     <label for="medio-pago">medio de pago:</label>
-                    <select id="medio-pago">
-                        <option value="">selecciona una opcion</option>
-                        <option value="efectivo">efectivo</option>
-                        <option value="tarjeta">tarjeta</option>
-                    </select>
+<select id="medio-pago">
+    <option value="">selecciona una opcion</option>
+    <option value="tarjeta">tarjeta</option>
+    <option value="transferencia">transferencia</option>
+</select>
 
                     <p id="estado-pago"></p>
 
@@ -435,10 +435,8 @@ const mostrarCarrito = () => {
                         const numeroOperacion = `VIA-${Date.now()}`;
                         const numeroOrden = `ORD-${Date.now()}`;
                         const fechaCompra = new Date().toLocaleString("es-AR");
-                        const esPagoEnEfectivo = medioPago === "efectivo";
-                        const nombreMedioPago = medioPago === "billetera"
-                            ? "billetera virtual"
-                            : medioPago;
+const esTransferencia = medioPago === "transferencia";
+const nombreMedioPago = medioPago;
                         const cantidadTotalViajes = carrito.reduce(
                             (acumulado, paquete) => acumulado + (paquete.cantidad ?? 1),
                             0
@@ -448,18 +446,22 @@ const mostrarCarrito = () => {
                         guardarCarrito();
                         mostrarCarrito();
 
-                        if (esPagoEnEfectivo) {
+if (esTransferencia) {
                             contenedorCotizacion.innerHTML = `
                                 <div class="tarjeta-cotizacion">
                                     <h3>¡Orden de compra creada!</h3>
                                     <p>Orden: ${numeroOrden}</p>
                                     <p>Fecha: ${fechaCompra}</p>
-                                    <p>Medio de pago: efectivo</p>
-                                    <p>Cantidad de viajes: ${cantidadTotalViajes}</p>
-                                    <p class="precio-total">Total pendiente: ${formatearPrecio(totalCompra)}</p>
-                                    <p>Alias para transferencia: <strong>VIAJES.FLOR.PAGO</strong></p>
-                                    <p>Contacto para coordinar: <strong>11 5555-0101</strong></p>
-                                    <p>Tu orden quedó registrada. El pago todavía está pendiente.</p>
+<p>Medio de pago: transferencia</p>
+<p>Cantidad de viajes: ${cantidadTotalViajes}</p>
+<p class="precio-total">
+    Total pendiente: ${formatearPrecio(totalCompra)}
+</p>
+<p>
+    Te contactaremos a tu número de contacto indicando este
+    número de orden, para avanzar con el pago vía transferencia.
+</p>
+<p>Tu orden quedó registrada. El pago todavía está pendiente.</p>
                                 </div>
                             `;
 
@@ -471,9 +473,11 @@ const mostrarCarrito = () => {
                                     <strong>${numeroOrden}</strong>
                                     <hr>
                                     <p><b>Total pendiente:</b> ${formatearPrecio(totalCompra)}</p>
-                                    <p><b>Alias:</b> VIAJES.FLOR.PAGO</p>
-                                    <p><b>Contacto:</b> 11 5555-0101</p>
-                                    <small>Contactanos para coordinar el pago en efectivo. Esta es una operación simulada.</small>
+                                    <p>
+    Te contactaremos a tu número de contacto indicando este
+    número de orden, para avanzar con el pago vía transferencia.
+</p>
+<small>Esta es una operación simulada.</small>
                                 `,
                                 confirmButtonText: "Entendido",
                                 confirmButtonColor: "#287c9c"
