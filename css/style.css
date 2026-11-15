@@ -1,5 +1,4 @@
 
-/* ESTILOS GENERALES */
 
 * {
     box-sizing: border-box;
@@ -13,7 +12,6 @@ body {
     line-height: 1.6;
 }
 
-/* ENCABEZADO */
 
 header {
     background: linear-gradient(135deg, #125b78, #249bb0);
@@ -37,7 +35,7 @@ header p {
     opacity: 0.95;
 }
 
-/* CONTENIDO PRINCIPAL */
+
 
 main {
     width: 90%;
@@ -62,7 +60,6 @@ h2 {
     font-weight: 750;
 }
 
-/* FORMULARIO */
 
 #formulario-viaje {
     display: grid;
@@ -118,7 +115,7 @@ h2 {
     transform: translateY(-2px);
 }
 
-/* BUSCADOR */
+
 
 #buscador {
     width: 100%;
@@ -129,7 +126,6 @@ h2 {
     background-color: #f8fcfd;
 }
 
-/* DESTINOS */
 
 #contenedor-paquetes {
     display: grid;
@@ -183,7 +179,7 @@ h2 {
     transform: translateY(-2px);
 }
 
-/* COTIZACIÓN */
+
 
 .tarjeta-cotizacion {
     background-color: #f5fafc;
@@ -209,7 +205,7 @@ h2 {
     font-size: 21px;
 }
 
-/* CARRITO */
+
 
 #contenedor-carrito {
     display: flex;
@@ -243,7 +239,7 @@ h2 {
     margin: 8px 0;
 }
 
-/* BOTONES DEL CARRITO */
+
 
 .tarjeta-carrito button,
 #boton-vaciar-carrito {
@@ -276,7 +272,7 @@ h2 {
     cursor: not-allowed;
 }
 
-/* TOTAL DEL CARRITO */
+
 
 #total-carrito {
     margin-top: 15px;
@@ -289,7 +285,7 @@ h2 {
     text-align: right;
 }
 
-/* BOTONES DE COMPRA */
+
 
 #boton-checkout,
 #boton-confirmar-compra,
@@ -332,7 +328,7 @@ h2 {
     transform: none;
 }
 
-/* MENSAJES */
+
 
 #mensaje {
     position: fixed;
@@ -349,7 +345,6 @@ h2 {
     opacity: 1;
 }
 
-/* RECORDATORIO DEL CARRITO */
 
 #recordatorio-carrito {
     position: fixed;
@@ -378,7 +373,7 @@ h2 {
     }
 }
 
-/* ESTADO DE CARGA */
+
 
 #estado-carga {
     color: #176b87;
@@ -393,7 +388,7 @@ h2 {
     padding: 10px 0;
 }
 
-/* RESPONSIVE */
+
 
 @media (max-width: 800px) {
     #contenedor-paquetes {
@@ -435,4 +430,52 @@ h2 {
     #total-carrito {
         font-size: 17px;
     }
+}
+
+
+
+
+.tarjeta-paquete {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+
+#contenedor-paquetes .tarjeta-paquete:nth-child(1) {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("../assets/brasil.jpg");
+}
+
+
+#contenedor-paquetes .tarjeta-paquete:nth-child(2) {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("../assets/peru.jpg");
+}
+
+
+#contenedor-paquetes .tarjeta-paquete:nth-child(3) {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("../assets/colombia.jpg");
+}
+
+
+#contenedor-paquetes .tarjeta-paquete:nth-child(4) {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("../assets/chile.jpg");
+}
+
+
+#contenedor-paquetes .tarjeta-paquete:nth-child(5) {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("../assets/mexico.jpg");
 }
