@@ -467,7 +467,7 @@ const mostrarCarrito = () => {
                                     <p><b>Fecha:</b> ${fechaCompra}</p>
                                     <p><b>Medio de pago:</b> ${nombreMedioPago}</p>
                                     <p><b>Total abonado:</b> ${formatearPrecio(totalCompra)}</p>
-                                    <small>Esta es una simulación; no se realizó ningún cobro real.</small>
+                                    <small>Que disfrutes tu viaje!</small>
                                 `,
                                 confirmButtonText: "¡Genial!",
                                 confirmButtonColor: "#287c9c"
