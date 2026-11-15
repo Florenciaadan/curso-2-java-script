@@ -10,6 +10,7 @@ class PaqueteViaje {
 
 const paquetes = [];
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
+let temporizadorRecordatorio;
 
 const inputDestino = document.getElementById("destino");
 const inputPersonas = document.getElementById("personas");
@@ -227,9 +228,37 @@ const mostrarCotizacion = (paquete) => {
         });
 };
 
+const actualizarRecordatorioCarrito = () => {
+    const recordatorioActual =
+        document.getElementById("recordatorio-carrito");
+
+    if (carrito.length === 0) {
+        clearTimeout(temporizadorRecordatorio);
+        recordatorioActual?.remove();
+        return;
+    }
+
+    if (recordatorioActual) {
+        return;
+    }
+
+    clearTimeout(temporizadorRecordatorio);
+
+    temporizadorRecordatorio = setTimeout(() => {
+        if (carrito.length > 0) {
+            const recordatorio = document.createElement("div");
+
+            recordatorio.id = "recordatorio-carrito";
+            recordatorio.textContent = "¡No te olvides de tu carrito!";
+
+            document.body.appendChild(recordatorio);
+        }
+    }, 10000);
+};
 
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
+        actualizarRecordatorioCarrito();
 
     // Si el carrito queda vacío, quitar el recordatorio
     if (carrito.length === 0) {
